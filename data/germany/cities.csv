@@ -1,0 +1,18 @@
+city_native,city_english,is_capital,subdivision_native,subdivision_english,latitude,longitude
+Stuttgart,Stuttgart,y,Baden-Württemberg,Baden-Württemberg,48.7758,9.1829
+München,Munich,y,Bayern,Bavaria,48.1351,11.5820
+Berlin,Berlin,y,Berlin,Berlin,52.5200,13.4050
+Potsdam,Potsdam,y,Brandenburg,Brandenburg,52.3906,13.0645
+Bremen,Bremen,y,Bremen,Bremen,53.0793,8.8017
+Hamburg,Hamburg,y,Hamburg,Hamburg,53.5511,9.9937
+Wiesbaden,Wiesbaden,y,Hessen,Hesse,50.0782,8.2398
+Schwerin,Schwerin,y,Mecklenburg-Vorpommern,Mecklenburg-Western Pomerania,53.6355,11.4012
+Hannover,Hanover,y,Niedersachsen,Lower Saxony,52.3759,9.7320
+Düsseldorf,Düsseldorf,y,Nordrhein-Westfalen,North Rhine-Westphalia,51.2277,6.7735
+Mainz,Mainz,y,Rheinland-Pfalz,Rhineland-Palatinate,49.9929,8.2473
+Saarbrücken,Saarbrücken,y,Saarland,Saarland,49.2402,6.9969
+Dresden,Dresden,y,Sachsen,Saxony,51.0504,13.7373
+Magdeburg,Magdeburg,y,Sachsen-Anhalt,Saxony-Anhalt,52.1205,11.6276
+Kiel,Kiel,y,Schleswig-Holstein,Schleswig-Holstein,54.3233,10.1228
+Erfurt,Erfurt,y,Thüringen,Thuringia,50.9848,11.0299
+Köln,Cologne,n,Nordrhein-Westfalen,North Rhine-Westphalia,50.9375,6.9603

@@ -1,0 +1,19 @@
+{
+  "country_native": "Deutschland",
+  "country_english": "Germany",
+  "country_code": "DE",
+  "base_subdivision_code": "DE-BY",
+  "highlight_color": "#C11E1E",
+  "neutral_color": "#FEFEE9",
+  "marker_color": "#C11E1E",
+  "projection": {
+    "longitude_min": 5.866,
+    "longitude_max": 15.042,
+    "latitude_min": 47.270,
+    "latitude_max": 55.059,
+    "x_min": 275.0,
+    "x_max": 830.0,
+    "y_min": 245.0,
+    "y_max": 1005.0
+  }
+}
