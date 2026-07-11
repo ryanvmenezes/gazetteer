@@ -14,10 +14,15 @@ SPEC.loader.exec_module(generate)
 class GenerateTests(unittest.TestCase):
     def test_gazetteer_filenames(self):
         self.assertEqual(
-            generate.subdivision_filename("DE", "DE-BY"),
-            "gaz-de-subdivision-by.svg",
+            generate.subdivision_filename("DEU", "DE-BY"),
+            "gaz-deu-subdivision-by.svg",
         )
-        self.assertEqual(generate.city_filename("DE", "Köln"), "gaz-de-city-koeln.svg")
+        self.assertEqual(generate.city_filename("DEU", "Köln"), "gaz-deu-city-koeln.svg")
+
+    def test_sort_keys_preserve_country_and_row_order(self):
+        config = {"country_code": "DEU", "country_order": 1}
+        self.assertEqual(generate.country_sort_key(config), "DEU_01")
+        self.assertEqual(generate.row_sort_key(config, 7), "01_DEU_007")
 
     def test_city_marker_is_injected_and_highlight_is_neutralized(self):
         config = {

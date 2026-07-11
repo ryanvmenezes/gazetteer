@@ -1,7 +1,8 @@
 {
   "country_native": "Deutschland",
   "country_english": "Germany",
-  "country_code": "DE",
+  "country_code": "DEU",
+  "country_order": 1,
   "base_subdivision_code": "DE-BY",
   "highlight_color": "#C11E1E",
   "neutral_color": "#FEFEE9",
