@@ -79,12 +79,14 @@ Create `data/<ISO3>/subdivisions.csv`, `cities.csv`, and `map.json` following
 English labels even when they match the native label; generated CSVs leave
 duplicate English city, subdivision, and capital fields blank. Subdivision source rows
 also include native and English type labels, such as `Land` / `State` or
-`Freistaat` / `Free State`. The generator is data-driven, so no Python changes
-should be needed for countries whose Wikimedia locator maps use the same
-pattern.
+`Freistaat` / `Free State`, plus `subdivision_level` and
+`parent_subdivision_code`. Generated subdivision CSVs resolve the parent code
+into native and English parent names. Level-one rows leave all parent fields
+blank so every country can use the same Anki note type. The generator is
+data-driven, so no Python changes should be needed for countries whose
+Wikimedia locator maps use the same pattern.
 
 ## GitHub workflow
 
-Commit source data and generator changes after each country. Generated files
-stay out of Git because they can be rebuilt; attach a zip to a release if you
-want downloadable Anki bundles.
+Commit source data, generator changes, and generated CSVs after each country.
+Generated media and cache files stay out of Git because they can be rebuilt.

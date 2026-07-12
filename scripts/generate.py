@@ -155,7 +155,19 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
 
     subdivision_rows: list[dict[str, str]] = []
     cached_by_code: dict[str, Path] = {}
-    for row_number, subdivision in enumerate(read_csv(data_dir / "subdivisions.csv"), start=1):
+    subdivisions = read_csv(data_dir / "subdivisions.csv")
+    subdivisions_by_code = {
+        subdivision["subdivision_code"]: subdivision
+        for subdivision in subdivisions
+    }
+    for row_number, subdivision in enumerate(subdivisions, start=1):
+        parent_code = subdivision["parent_subdivision_code"]
+        parent = subdivisions_by_code.get(parent_code)
+        if parent_code and parent is None:
+            raise ValueError(
+                f"Unknown parent subdivision code {parent_code} for "
+                f'{subdivision["subdivision_code"]}'
+            )
         code_suffix = subdivision["subdivision_code"].split("-", 1)[1].lower()
         source_prefix = subdivision["subdivision_code"].split("-", 1)[0].lower()
         cached_svg = cache_dir / f"{source_prefix}-{code_suffix}-locator.svg"
@@ -183,6 +195,13 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
             ),
             "subdivision_type_native": subdivision["subdivision_type_native"],
             "subdivision_type_english": subdivision["subdivision_type_english"],
+            "subdivision_level": subdivision["subdivision_level"],
+            "parent_subdivision_code": parent_code,
+            "parent_subdivision_native": parent["subdivision_native"] if parent else "",
+            "parent_subdivision_english": english_if_different(
+                parent["subdivision_native"],
+                parent["subdivision_english"],
+            ) if parent else "",
             "capital_native": subdivision["capital_native"],
             "capital_english": english_if_different(
                 subdivision["capital_native"],
