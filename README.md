@@ -7,12 +7,20 @@ in Anki's `collection.media` directory.
 Gazetteer produces a separate set of Anki imports for each country. Every
 country currently has:
 
-- `outputs/<ISO3>/subdivisions.csv`: identify a subdivision and review its capital.
+- `outputs/<ISO3>/subdivisions--<topic>.csv`: identify a subdivision and review its capital.
 - `outputs/<ISO3>/cities.csv`: identify a marked city and review its subdivision.
 
 Countries can add further imports for country-specific material, such as a
 historical subdivision mapping. SVG files for each country live alongside its
 CSVs in `outputs/<ISO3>/media/`.
+
+Subdivision filenames use `<note-type>--<topic>.csv`. The text before `--`
+identifies the Anki note type, while the text after it identifies the country's
+topic. Germany therefore emits `subdivisions--states.csv`. France emits
+`subdivisions--regions.csv` and
+`subdivisions-with-parent--regions-old.csv`; the latter adds reusable
+`parent_subdivision_*` fields for mapping each former region to its current
+region.
 
 Generated CSVs begin with Anki-native `#separator` and `#columns` metadata.
 Anki uses these lines to configure the import and display field names without
@@ -29,6 +37,13 @@ pass their ISO alpha-3 codes, for example `python3 scripts/generate.py DEU`.
 It downloads Wikimedia Commons locator SVGs into `cache/` and writes each
 country's CSVs and Anki media to `outputs/<ISO3>/`. Cache and generated media
 are ignored by Git; generated CSVs are tracked.
+
+France uses a single checked-in Wikimedia SVG template whose department shapes
+have stable IDs. The generator makes the department layer visible, removes
+unused label and overlay layers, neutralizes every department, and highlights
+the departments belonging to each current or former region. Thus both French
+map families are rebuilt locally from one source SVG rather than downloading a
+separate locator for every row.
 
 To copy all generated media into Anki:
 
@@ -74,8 +89,9 @@ of their source CSV regardless of alphabetical order.
 
 ## Adding a country
 
-Create `data/<ISO3>/subdivisions.csv`, `cities.csv`, and `map.json` following
-`data/DEU`. Give the country a unique `country_order`. In source CSVs, include
+Create `data/<ISO3>/subdivisions.csv` and `map.json` following `data/DEU`, plus
+`cities.csv` when the country has a city deck. Give the country a unique
+`country_order`. In source CSVs, include
 English labels even when they match the native label; generated CSVs leave
 duplicate English city, subdivision, and capital fields blank. Subdivision source rows
 also include native and English type labels, such as `Land` / `State` or

@@ -11,6 +11,7 @@ import shutil
 import subprocess
 import time
 import urllib.parse
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
@@ -50,21 +51,55 @@ def commons_urls(file_name: str) -> tuple[str, str]:
     return f"{COMMONS_REDIRECT}/{quoted}", f"{COMMONS_FILE_PAGE}{quoted}"
 
 
+def commons_download_urls(file_names: list[str]) -> dict[str, str]:
+    if not file_names:
+        return {}
+    result = subprocess.run(
+        [
+            "curl", "-L", "--fail", "--silent", "--show-error",
+            "--retry", "8", "--retry-delay", "5", "--retry-all-errors",
+            "-A", USER_AGENT,
+            "--get", "https://commons.wikimedia.org/w/api.php",
+            "--data", "action=query",
+            "--data", "format=json",
+            "--data", "formatversion=2",
+            "--data", "prop=imageinfo",
+            "--data", "iiprop=url",
+            "--data-urlencode", f'titles={"|".join(f"File:{name}" for name in file_names)}',
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(result.stdout)
+    urls = {}
+    for page in payload["query"]["pages"]:
+        if "missing" in page or not page.get("imageinfo"):
+            raise ValueError(f'Unknown Wikimedia Commons file: {page["title"]}')
+        urls[page["title"].removeprefix("File:")] = page["imageinfo"][0]["url"]
+    return urls
+
+
 def download(url: str, destination: Path) -> None:
     destination.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(
         [
             "curl", "-L", "--fail", "--silent", "--show-error",
-            "--retry", "5", "--retry-delay", "3", "-A", USER_AGENT,
+            "--retry", "8", "--retry-delay", "5", "--retry-all-errors",
+            "-A", USER_AGENT,
             "-o", str(destination), url,
         ],
         check=True,
     )
 
 
-def subdivision_filename(country_code: str, subdivision_code: str) -> str:
+def subdivision_filename(
+    country_code: str,
+    subdivision_code: str,
+    media_kind: str = "subdivision",
+) -> str:
     suffix = subdivision_code.split("-", 1)[1].lower()
-    return f"gaz-{country_code.lower()}-subdivision-{suffix}.svg"
+    return f"gaz-{country_code.lower()}-{media_kind}-{suffix}.svg"
 
 
 def city_filename(country_code: str, city_native: str) -> str:
@@ -143,36 +178,254 @@ def add_city_markers(
     destination.write_text(svg, encoding="utf-8")
 
 
-def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
-    config = json.loads((data_dir / "map.json").read_text(encoding="utf-8"))
-    country_code = config["country_code"]
-    cache_dir = PROJECT_DIR / "cache" / country_code
-    country_output_dir = OUTPUT_DIR / country_code
-    media_dir = country_output_dir / "media"
-    cache_dir.mkdir(parents=True, exist_ok=True)
-    media_dir.mkdir(parents=True, exist_ok=True)
-    clear_country_media(media_dir, country_code)
+def set_svg_fill(element: ET.Element, color: str) -> None:
+    for child in element.iter():
+        fill_changed = False
+        fill = child.get("fill")
+        if fill and fill.lower() != "none":
+            child.set("fill", color)
+            child.set("fill-opacity", "1")
+            fill_changed = True
+        style = child.get("style")
+        if style:
+            declarations = []
+            for declaration in style.split(";"):
+                if declaration.startswith("fill:") and declaration != "fill:none":
+                    declaration = f"fill:{color}"
+                    fill_changed = True
+                if fill_changed and declaration.startswith("fill-opacity:"):
+                    declaration = "fill-opacity:1"
+                declarations.append(declaration)
+            if fill_changed and not any(
+                declaration.startswith("fill-opacity:") for declaration in declarations
+            ):
+                declarations.append("fill-opacity:1")
+            child.set("style", ";".join(declarations))
 
-    subdivision_rows: list[dict[str, str]] = []
+
+def find_svg_target(
+    id_index: dict[str, ET.Element],
+    parent_index: dict[ET.Element, ET.Element],
+    target_id: str,
+) -> ET.Element:
+    inkscape_label = "{http://www.inkscape.org/namespaces/inkscape}label"
+
+    def is_in_department_layer(element: ET.Element) -> bool:
+        while element in parent_index:
+            element = parent_index[element]
+            if element.get(inkscape_label) in {
+                "Départements Métropolitains",
+                "Encarts Départements d'Outre-Mer",
+            }:
+                return True
+        return False
+
+    matches = [
+        element
+        for element_id, element in id_index.items()
+        if element_id == target_id or element_id.startswith(f"{target_id} ")
+        if is_in_department_layer(element)
+    ]
+    if len(matches) != 1:
+        raise ValueError(
+            f"SVG target {target_id} matched {len(matches)} elements; expected exactly one"
+        )
+    return matches[0]
+
+
+def prepare_svg_template(
+    template_path: Path,
+    target_ids: set[str],
+    hidden_layer_labels: set[str],
+    neutral_color: str,
+    target_companions: dict[str, list[str]],
+) -> bytes:
+    tree = ET.parse(template_path)
+    root = tree.getroot()
+    id_index = {element.get("id"): element for element in root.iter() if element.get("id")}
+    parent_index = {child: parent for parent in root.iter() for child in parent}
+
+    inkscape_label = "{http://www.inkscape.org/namespaces/inkscape}label"
+    for element in root.iter():
+        if element.get(inkscape_label) in {
+            "Départements Métropolitains",
+            "Encarts Départements d'Outre-Mer",
+        }:
+            declarations = [
+                declaration
+                for declaration in element.get("style", "").split(";")
+                if declaration and not declaration.startswith("display:")
+            ]
+            declarations.append("display:inline")
+            element.set("style", ";".join(declarations))
+    for element in list(root.iter()):
+        if element.get(inkscape_label) in hidden_layer_labels:
+            parent_index[element].remove(element)
+    for target_id in target_ids:
+        set_svg_fill(find_svg_target(id_index, parent_index, target_id), neutral_color)
+        for companion_id in target_companions.get(target_id, []):
+            set_svg_fill(id_index[companion_id], neutral_color)
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+
+
+def highlight_svg_template(
+    template: bytes,
+    destination: Path,
+    target_ids: list[str],
+    highlight_color: str,
+    target_companions: dict[str, list[str]],
+) -> None:
+    root = ET.fromstring(template)
+    id_index = {element.get("id"): element for element in root.iter() if element.get("id")}
+    parent_index = {child: parent for parent in root.iter() for child in parent}
+    for target_id in target_ids:
+        set_svg_fill(find_svg_target(id_index, parent_index, target_id), highlight_color)
+        for companion_id in target_companions.get(target_id, []):
+            set_svg_fill(id_index[companion_id], highlight_color)
+    ET.ElementTree(root).write(destination, encoding="utf-8", xml_declaration=True)
+
+
+def subdivision_output_row(
+    subdivision: dict[str, str],
+    config: dict,
+    sort_key: str,
+    filename: str,
+    source_url: str,
+    with_parent: bool,
+) -> dict[str, str]:
+    output_row = {
+        "sort_key": sort_key,
+        "country_code": config["country_code"],
+        "country_native": config["country_native"],
+        "country_english": config["country_english"],
+        "subdivision_native": subdivision["subdivision_native"],
+        "subdivision_english": english_if_different(
+            subdivision["subdivision_native"], subdivision["subdivision_english"]
+        ),
+        "subdivision_type_native": subdivision["subdivision_type_native"],
+        "subdivision_type_english": subdivision["subdivision_type_english"],
+        "capital_native": subdivision["capital_native"],
+        "capital_english": english_if_different(
+            subdivision["capital_native"], subdivision["capital_english"]
+        ),
+        "subdivision_code": subdivision["subdivision_code"],
+    }
+    if with_parent:
+        output_row.update({
+            "parent_subdivision_native": subdivision["parent_subdivision_native"],
+            "parent_subdivision_english": english_if_different(
+                subdivision["parent_subdivision_native"],
+                subdivision["parent_subdivision_english"],
+            ),
+            "parent_subdivision_type_native": subdivision["parent_subdivision_type_native"],
+            "parent_subdivision_type_english": subdivision["parent_subdivision_type_english"],
+            "parent_subdivision_code": subdivision["parent_subdivision_code"],
+        })
+    output_row.update({
+        "map_image": f'<img src="{filename}" />',
+        "map_filename": filename,
+        "map_source": source_url,
+    })
+    return output_row
+
+
+def generate_template_subdivision_set(
+    source_path: Path,
+    output_path: Path,
+    media_dir: Path,
+    config: dict,
+    family_order: int,
+    family_code: str,
+    media_kind: str,
+    with_parent: bool = False,
+) -> list[dict[str, str]]:
+    subdivisions = read_csv(source_path)
+    all_target_ids = {
+        target_id
+        for subdivision in subdivisions
+        for target_id in subdivision["map_target_ids"].split(";")
+    }
+    template = prepare_svg_template(
+        source_path.parent / config["map_template"],
+        all_target_ids,
+        set(config["map_hidden_layers"]),
+        config["neutral_color"],
+        config.get("map_target_companions", {}),
+    )
+    rows = []
+    for row_number, subdivision in enumerate(subdivisions, start=1):
+        filename = subdivision_filename(
+            config["country_code"], subdivision["subdivision_code"], media_kind
+        )
+        highlight_svg_template(
+            template,
+            media_dir / filename,
+            subdivision["map_target_ids"].split(";"),
+            config["highlight_color"],
+            config.get("map_target_companions", {}),
+        )
+        rows.append(subdivision_output_row(
+            subdivision,
+            config,
+            row_sort_key(config, family_order, family_code, row_number),
+            filename,
+            config["map_source"],
+            with_parent,
+        ))
+    write_csv(output_path, rows)
+    return rows
+
+
+def generate_subdivision_set(
+    source_path: Path,
+    output_path: Path,
+    cache_dir: Path,
+    media_dir: Path,
+    config: dict,
+    seed_dir: Path | None,
+    family_order: int,
+    family_code: str,
+    media_kind: str,
+    with_parent: bool = False,
+) -> tuple[list[dict[str, str]], dict[str, Path]]:
+    country_code = config["country_code"]
+    rows: list[dict[str, str]] = []
     cached_by_code: dict[str, Path] = {}
-    for row_number, subdivision in enumerate(read_csv(data_dir / "subdivisions.csv"), start=1):
+    subdivisions = read_csv(source_path)
+    missing_files = []
+    for subdivision in subdivisions:
         code_suffix = subdivision["subdivision_code"].split("-", 1)[1].lower()
-        source_prefix = subdivision["subdivision_code"].split("-", 1)[0].lower()
-        cached_svg = cache_dir / f"{source_prefix}-{code_suffix}-locator.svg"
+        cache_prefix = (
+            subdivision["subdivision_code"].split("-", 1)[0].lower()
+            if media_kind == "subdivision"
+            else media_kind
+        )
+        if not (cache_dir / f"{cache_prefix}-{code_suffix}-locator.svg").exists():
+            missing_files.append(subdivision["commons_file"])
+    download_urls = commons_download_urls(missing_files)
+
+    for row_number, subdivision in enumerate(subdivisions, start=1):
+        code_suffix = subdivision["subdivision_code"].split("-", 1)[1].lower()
+        cache_prefix = (
+            subdivision["subdivision_code"].split("-", 1)[0].lower()
+            if media_kind == "subdivision"
+            else media_kind
+        )
+        cached_svg = cache_dir / f"{cache_prefix}-{code_suffix}-locator.svg"
         if not cached_svg.exists() and seed_dir:
             seed = seed_dir / cached_svg.name
             if seed.exists():
                 shutil.copy2(seed, cached_svg)
         svg_url, source_url = commons_urls(subdivision["commons_file"])
         if not cached_svg.exists():
-            download(svg_url, cached_svg)
-            time.sleep(1)
+            download(download_urls.get(subdivision["commons_file"], svg_url), cached_svg)
+            time.sleep(config.get("download_delay", 1))
         cached_by_code[subdivision["subdivision_code"]] = cached_svg
 
-        filename = subdivision_filename(country_code, subdivision["subdivision_code"])
+        filename = subdivision_filename(country_code, subdivision["subdivision_code"], media_kind)
         shutil.copy2(cached_svg, media_dir / filename)
-        subdivision_rows.append({
-            "sort_key": row_sort_key(config, 1, "SUB1", row_number),
+        output_row = {
+            "sort_key": row_sort_key(config, family_order, family_code, row_number),
             "country_code": country_code,
             "country_native": config["country_native"],
             "country_english": config["country_english"],
@@ -189,41 +442,119 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
                 subdivision["capital_english"],
             ),
             "subdivision_code": subdivision["subdivision_code"],
+        }
+        if with_parent:
+            output_row.update({
+                "parent_subdivision_native": subdivision["parent_subdivision_native"],
+                "parent_subdivision_english": english_if_different(
+                    subdivision["parent_subdivision_native"],
+                    subdivision["parent_subdivision_english"],
+                ),
+                "parent_subdivision_type_native": subdivision["parent_subdivision_type_native"],
+                "parent_subdivision_type_english": subdivision["parent_subdivision_type_english"],
+                "parent_subdivision_code": subdivision["parent_subdivision_code"],
+            })
+        output_row.update({
             "map_image": f'<img src="{filename}" />',
             "map_filename": filename,
             "map_source": source_url,
         })
+        rows.append(output_row)
+    write_csv(output_path, rows)
+    return rows, cached_by_code
 
-    base_svg = cached_by_code[config["base_subdivision_code"]]
+
+def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
+    config = json.loads((data_dir / "map.json").read_text(encoding="utf-8"))
+    country_code = config["country_code"]
+    cache_dir = PROJECT_DIR / "cache" / country_code
+    country_output_dir = OUTPUT_DIR / country_code
+    media_dir = country_output_dir / "media"
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    media_dir.mkdir(parents=True, exist_ok=True)
+    clear_country_media(media_dir, country_code)
+
+    parent_source = data_dir / "subdivisions_with_parent.csv"
+    parent_rows: list[dict[str, str]] = []
+    if "map_template" in config:
+        subdivision_rows = generate_template_subdivision_set(
+            data_dir / "subdivisions.csv",
+            country_output_dir / config["subdivision_output"],
+            media_dir,
+            config,
+            family_order=1,
+            family_code="SUB1",
+            media_kind="subdivision",
+        )
+        cached_by_code: dict[str, Path] = {}
+        if parent_source.exists():
+            parent_rows = generate_template_subdivision_set(
+                parent_source,
+                country_output_dir / config["subdivision_parent_output"],
+                media_dir,
+                config,
+                family_order=3,
+                family_code="HIST",
+                media_kind="subdivision-old",
+                with_parent=True,
+            )
+    else:
+        subdivision_rows, cached_by_code = generate_subdivision_set(
+            data_dir / "subdivisions.csv",
+            country_output_dir / config["subdivision_output"],
+            cache_dir,
+            media_dir,
+            config,
+            seed_dir,
+            family_order=1,
+            family_code="SUB1",
+            media_kind="subdivision",
+        )
+        if parent_source.exists():
+            parent_rows, _ = generate_subdivision_set(
+                parent_source,
+                country_output_dir / config["subdivision_parent_output"],
+                cache_dir,
+                media_dir,
+                config,
+                seed_dir,
+                family_order=3,
+                family_code="HIST",
+                media_kind="subdivision-old",
+                with_parent=True,
+            )
+
     city_rows: list[dict[str, str]] = []
-    cities = read_csv(data_dir / "cities.csv")
-    for row_number, city in enumerate(cities, start=1):
-        filename = city_filename(country_code, city["city_native"])
-        add_city_markers(base_svg, media_dir / filename, config, cities, city)
-        city_rows.append({
-            "sort_key": row_sort_key(config, 2, "CITY", row_number),
-            "country_code": country_code,
-            "country_native": config["country_native"],
-            "country_english": config["country_english"],
-            "city_native": city["city_native"],
-            "city_english": english_if_different(
-                city["city_native"],
-                city["city_english"],
-            ),
-            "not_capital": not_capital_value(city),
-            "subdivision_native": city["subdivision_native"],
-            "subdivision_english": english_if_different(
-                city["subdivision_native"],
-                city["subdivision_english"],
-            ),
-            "latitude": city["latitude"],
-            "longitude": city["longitude"],
-            "map_image": f'<img src="{filename}" />',
-            "map_filename": filename,
-        })
-    write_csv(country_output_dir / "subdivisions.csv", subdivision_rows)
-    write_csv(country_output_dir / "cities.csv", city_rows)
-    return subdivision_rows, city_rows
+    city_source = data_dir / "cities.csv"
+    if city_source.exists():
+        base_svg = cached_by_code[config["base_subdivision_code"]]
+        cities = read_csv(city_source)
+        for row_number, city in enumerate(cities, start=1):
+            filename = city_filename(country_code, city["city_native"])
+            add_city_markers(base_svg, media_dir / filename, config, cities, city)
+            city_rows.append({
+                "sort_key": row_sort_key(config, 2, "CITY", row_number),
+                "country_code": country_code,
+                "country_native": config["country_native"],
+                "country_english": config["country_english"],
+                "city_native": city["city_native"],
+                "city_english": english_if_different(
+                    city["city_native"],
+                    city["city_english"],
+                ),
+                "not_capital": not_capital_value(city),
+                "subdivision_native": city["subdivision_native"],
+                "subdivision_english": english_if_different(
+                    city["subdivision_native"],
+                    city["subdivision_english"],
+                ),
+                "latitude": city["latitude"],
+                "longitude": city["longitude"],
+                "map_image": f'<img src="{filename}" />',
+                "map_filename": filename,
+            })
+        write_csv(country_output_dir / "cities.csv", city_rows)
+    return subdivision_rows + parent_rows, city_rows
 
 
 def country_directories(selected: list[str] | None) -> list[Path]:

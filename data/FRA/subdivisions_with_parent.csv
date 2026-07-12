@@ -1,0 +1,28 @@
+subdivision_native,subdivision_english,subdivision_type_native,subdivision_type_english,capital_native,capital_english,subdivision_code,parent_subdivision_native,parent_subdivision_english,parent_subdivision_type_native,parent_subdivision_type_english,parent_subdivision_code,map_target_ids
+Alsace,Alsace,Région (1982–2015),Region (1982–2015),Strasbourg,Strasbourg,FR-42,Grand Est,Grand Est,Région actuelle,Current region,FR-GES,67;68
+Aquitaine,Aquitaine,Région (1982–2015),Region (1982–2015),Bordeaux,Bordeaux,FR-72,Nouvelle-Aquitaine,New Aquitaine,Région actuelle,Current region,FR-NAQ,24;33;40;47;64
+Auvergne,Auvergne,Région (1982–2015),Region (1982–2015),Clermont-Ferrand,Clermont-Ferrand,FR-83,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région actuelle,Current region,FR-ARA,03;15;43;63
+Basse-Normandie,Lower Normandy,Région (1982–2015),Region (1982–2015),Caen,Caen,FR-25,Normandie,Normandy,Région actuelle,Current region,FR-NOR,14;50;61
+Bourgogne,Burgundy,Région (1982–2015),Region (1982–2015),Dijon,Dijon,FR-26,Bourgogne-Franche-Comté,Burgundy-Free County,Région actuelle,Current region,FR-BFC,21;58;71;89
+Bretagne,Brittany,Région (1982–2015),Region (1982–2015),Rennes,Rennes,FR-53,Bretagne,Brittany,Région actuelle,Current region,FR-BRE,22;29;35;56
+Centre,Centre,Région (1982–2015),Region (1982–2015),Orléans,Orléans,FR-24,Centre-Val de Loire,Centre-Loire Valley,Région actuelle,Current region,FR-CVL,18;28;36;37;41;45
+Champagne-Ardenne,Champagne-Ardenne,Région (1982–2015),Region (1982–2015),Châlons-en-Champagne,Châlons-en-Champagne,FR-21,Grand Est,Grand Est,Région actuelle,Current region,FR-GES,08;10;51;52
+Corse,Corsica,Région (1982–2015),Region (1982–2015),Ajaccio,Ajaccio,FR-94,Corse,Corsica,Collectivité de Corse,Collectivity of Corsica,FR-20R,2A;2B
+Franche-Comté,Franche-Comté,Région (1982–2015),Region (1982–2015),Besançon,Besançon,FR-43,Bourgogne-Franche-Comté,Burgundy-Free County,Région actuelle,Current region,FR-BFC,25;39;70;90
+Haute-Normandie,Upper Normandy,Région (1982–2015),Region (1982–2015),Rouen,Rouen,FR-23,Normandie,Normandy,Région actuelle,Current region,FR-NOR,27;76
+Île-de-France,Île-de-France,Région (1982–2015),Region (1982–2015),Paris,Paris,FR-11,Île-de-France,Île-de-France,Région actuelle,Current region,FR-IDF,75;77;78;91;92;93;94;95
+Languedoc-Roussillon,Languedoc-Roussillon,Région (1982–2015),Region (1982–2015),Montpellier,Montpellier,FR-91,Occitanie,Occitania,Région actuelle,Current region,FR-OCC,11;30;34;48;66
+Limousin,Limousin,Région (1982–2015),Region (1982–2015),Limoges,Limoges,FR-74,Nouvelle-Aquitaine,New Aquitaine,Région actuelle,Current region,FR-NAQ,19;23;87
+Lorraine,Lorraine,Région (1982–2015),Region (1982–2015),Metz,Metz,FR-41,Grand Est,Grand Est,Région actuelle,Current region,FR-GES,54;55;57;88
+Midi-Pyrénées,Midi-Pyrénées,Région (1982–2015),Region (1982–2015),Toulouse,Toulouse,FR-73,Occitanie,Occitania,Région actuelle,Current region,FR-OCC,09;12;31;32;46;65;81;82
+Nord-Pas-de-Calais,Nord-Pas-de-Calais,Région (1982–2015),Region (1982–2015),Lille,Lille,FR-31,Hauts-de-France,Hauts-de-France,Région actuelle,Current region,FR-HDF,59;62
+Pays de la Loire,Pays de la Loire,Région (1982–2015),Region (1982–2015),Nantes,Nantes,FR-52,Pays de la Loire,Pays de la Loire,Région actuelle,Current region,FR-PDL,44;49;53;72;85
+Picardie,Picardy,Région (1982–2015),Region (1982–2015),Amiens,Amiens,FR-22,Hauts-de-France,Hauts-de-France,Région actuelle,Current region,FR-HDF,02;60;80
+Poitou-Charentes,Poitou-Charentes,Région (1982–2015),Region (1982–2015),Poitiers,Poitiers,FR-54,Nouvelle-Aquitaine,New Aquitaine,Région actuelle,Current region,FR-NAQ,16;17;79;86
+Provence-Alpes-Côte d'Azur,Provence-Alpes-Côte d'Azur,Région (1982–2015),Region (1982–2015),Marseille,Marseille,FR-93,Provence-Alpes-Côte d'Azur,Provence-Alpes-Côte d'Azur,Région actuelle,Current region,FR-PAC,04;05;06;13;83;84
+Rhône-Alpes,Rhône-Alpes,Région (1982–2015),Region (1982–2015),Lyon,Lyon,FR-82,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région actuelle,Current region,FR-ARA,01;07;26;38;42;69;73;74
+Guyane,French Guiana,Région d'outre-mer (1982–2015),Overseas region (1982–2015),Cayenne,Cayenne,FR-03,Guyane,French Guiana,Collectivité territoriale unique,Single territorial collectivity,FR-GF,973
+Guadeloupe,Guadeloupe,Région d'outre-mer (1982–2015),Overseas region (1982–2015),Basse-Terre,Basse-Terre,FR-01,Guadeloupe,Guadeloupe,Région et département d'outre-mer,Overseas region and department,FR-GP,971
+Martinique,Martinique,Région d'outre-mer (1982–2015),Overseas region (1982–2015),Fort-de-France,Fort-de-France,FR-02,Martinique,Martinique,Collectivité territoriale unique,Single territorial collectivity,FR-MQ,972
+La Réunion,Réunion,Région d'outre-mer (1982–2015),Overseas region (1982–2015),Saint-Denis,Saint-Denis,FR-04,La Réunion,Réunion,Région et département d'outre-mer,Overseas region and department,FR-RE,974
+Mayotte,Mayotte,Région d'outre-mer (2011–2015),Overseas region (2011–2015),Mamoudzou,Mamoudzou,FR-05,Mayotte,Mayotte,Département et région d'outre-mer,Overseas department and region,FR-YT,976

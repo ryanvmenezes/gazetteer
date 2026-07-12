@@ -1,0 +1,29 @@
+{
+  "country_native": "France",
+  "country_english": "France",
+  "country_code": "FRA",
+  "country_order": 2,
+  "subdivision_output": "subdivisions--regions.csv",
+  "subdivision_parent_output": "subdivisions-with-parent--regions-old.csv",
+  "map_template": "maps/regions-template-source.svg",
+  "map_source": "https://commons.wikimedia.org/wiki/File:France_r%C3%A9gionale.svg",
+  "highlight_color": "#C11E1E",
+  "neutral_color": "#FEFEE9",
+  "map_target_companions": {
+    "69": ["g6422"]
+  },
+  "map_hidden_layers": [
+    "Régions Métropolitaines",
+    "Départements gris",
+    "Métropole de Lyon gris",
+    "Noms des départements",
+    "Noms des régions",
+    "Numéros des départements",
+    "Chefs-lieux de départements",
+    "Villes",
+    "Chefs-lieux de région",
+    "Echelle et Mini-carte",
+    "Coordonnées",
+    "Encart Paris-Petite-Couronne"
+  ]
+}

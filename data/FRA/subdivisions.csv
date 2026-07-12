@@ -1,0 +1,19 @@
+subdivision_native,subdivision_english,subdivision_type_native,subdivision_type_english,capital_native,capital_english,subdivision_code,map_target_ids
+Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,Lyon,Lyon,FR-ARA,01;03;07;15;26;38;42;43;63;69;73;74
+Bourgogne-Franche-Comté,Burgundy-Free County,Région,Region,Dijon,Dijon,FR-BFC,21;25;39;58;70;71;89;90
+Bretagne,Brittany,Région,Region,Rennes,Rennes,FR-BRE,22;29;35;56
+Centre-Val de Loire,Centre-Loire Valley,Région,Region,Orléans,Orléans,FR-CVL,18;28;36;37;41;45
+Corse,Corsica,Collectivité de Corse,Collectivity of Corsica,Ajaccio,Ajaccio,FR-20R,2A;2B
+Grand Est,Grand Est,Région,Region,Strasbourg,Strasbourg,FR-GES,08;10;51;52;54;55;57;67;68;88
+Hauts-de-France,Hauts-de-France,Région,Region,Lille,Lille,FR-HDF,02;59;60;62;80
+Île-de-France,Île-de-France,Région,Region,Paris,Paris,FR-IDF,75;77;78;91;92;93;94;95
+Normandie,Normandy,Région,Region,Rouen,Rouen,FR-NOR,14;27;50;61;76
+Nouvelle-Aquitaine,New Aquitaine,Région,Region,Bordeaux,Bordeaux,FR-NAQ,16;17;19;23;24;33;40;47;64;79;86;87
+Occitanie,Occitania,Région,Region,Toulouse,Toulouse,FR-OCC,09;11;12;30;31;32;34;46;48;65;66;81;82
+Pays de la Loire,Pays de la Loire,Région,Region,Nantes,Nantes,FR-PDL,44;49;53;72;85
+Provence-Alpes-Côte d'Azur,Provence-Alpes-Côte d'Azur,Région,Region,Marseille,Marseille,FR-PAC,04;05;06;13;83;84
+Guyane,French Guiana,Collectivité territoriale unique,Single territorial collectivity,Cayenne,Cayenne,FR-GF,973
+Guadeloupe,Guadeloupe,Région et département d'outre-mer,Overseas region and department,Basse-Terre,Basse-Terre,FR-GP,971
+Martinique,Martinique,Collectivité territoriale unique,Single territorial collectivity,Fort-de-France,Fort-de-France,FR-MQ,972
+La Réunion,Réunion,Région et département d'outre-mer,Overseas region and department,Saint-Denis,Saint-Denis,FR-RE,974
+Mayotte,Mayotte,Département et région d'outre-mer,Overseas department and region,Mamoudzou,Mamoudzou,FR-YT,976

@@ -27,10 +27,55 @@ class GenerateTests(unittest.TestCase):
             ["DEU_01_SUB1_001", "Bayern"],
         )
 
+    def test_parent_subdivision_output_adds_reusable_parent_fields(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "subdivisions_with_parent.csv"
+            output = root / "output.csv"
+            cache = root / "cache"
+            media = root / "media"
+            cache.mkdir()
+            media.mkdir()
+            source.write_text(
+                "subdivision_native,subdivision_english,subdivision_type_native,"
+                "subdivision_type_english,capital_native,capital_english,"
+                "subdivision_code,parent_subdivision_native,"
+                "parent_subdivision_english,parent_subdivision_type_native,"
+                "parent_subdivision_type_english,parent_subdivision_code,commons_file\n"
+                "Alsace,Alsace,Ancienne région,Former region,Strasbourg,Strasbourg,"
+                "FR-42,Grand Est,Grand Est,Région actuelle,Current region,FR-GES,"
+                "Alsace in France.svg\n",
+                encoding="utf-8",
+            )
+            (cache / "subdivision-old-42-locator.svg").write_text(
+                "<svg/>", encoding="utf-8"
+            )
+            rows, _ = generate.generate_subdivision_set(
+                source,
+                output,
+                cache,
+                media,
+                {"country_code": "FRA", "country_native": "France", "country_english": "France"},
+                None,
+                family_order=3,
+                family_code="HIST",
+                media_kind="subdivision-old",
+                with_parent=True,
+            )
+
+        self.assertEqual(rows[0]["sort_key"], "FRA_03_HIST_001")
+        self.assertEqual(rows[0]["parent_subdivision_native"], "Grand Est")
+        self.assertEqual(rows[0]["parent_subdivision_english"], "")
+        self.assertEqual(rows[0]["parent_subdivision_code"], "FR-GES")
+
     def test_gazetteer_filenames(self):
         self.assertEqual(
             generate.subdivision_filename("DEU", "DE-BY"),
             "gaz-deu-subdivision-by.svg",
+        )
+        self.assertEqual(
+            generate.subdivision_filename("FRA", "FR-42", "subdivision-old"),
+            "gaz-fra-subdivision-old-42.svg",
         )
         self.assertEqual(generate.city_filename("DEU", "Köln"), "gaz-deu-city-koeln.svg")
 
@@ -88,6 +133,33 @@ class GenerateTests(unittest.TestCase):
         self.assertIn('cx="60.00" cy="30.00" r="4.5" fill="#FFFFFF"', rendered)
         self.assertIn('stroke-width="1.25"', rendered)
         self.assertIn('<path fill="#FEFEE9"/>', rendered)
+
+    def test_template_maps_reveal_department_layer_and_highlight_targets(self):
+        svg = '''<svg xmlns="http://www.w3.org/2000/svg"
+            xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+          <g inkscape:label="Départements Métropolitains" style="display:none">
+            <g id="67 Bas-Rhin"><path style="fill:#abcdef;fill-opacity:0.5"/></g>
+            <g id="68 Haut-Rhin"><path style="fill:#abcdef"/></g>
+          </g>
+          <g id="overlay" inkscape:label="Régions Métropolitaines"><path/></g>
+        </svg>'''
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.svg"
+            output = root / "output.svg"
+            source.write_text(svg, encoding="utf-8")
+            template = generate.prepare_svg_template(
+                source, {"67", "68"}, {"Régions Métropolitaines"}, "#FEFEE9", {}
+            )
+            generate.highlight_svg_template(
+                template, output, ["67", "68"], "#C11E1E", {}
+            )
+            rendered = output.read_text(encoding="utf-8")
+
+        self.assertIn("display:inline", rendered)
+        self.assertNotIn('id="overlay"', rendered)
+        self.assertEqual(rendered.count("fill:#C11E1E"), 2)
+        self.assertNotIn("fill-opacity:0.5", rendered)
 
 
 if __name__ == "__main__":
