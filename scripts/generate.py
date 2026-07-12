@@ -88,15 +88,38 @@ def project_city(latitude: float, longitude: float, projection: dict[str, float]
     return x, y
 
 
-def add_city_marker(source: Path, destination: Path, config: dict, city: dict[str, str]) -> None:
+def city_marker(city: dict[str, str], config: dict, highlighted: bool) -> str:
+    x, y = project_city(float(city["latitude"]), float(city["longitude"]), config["projection"])
+    if highlighted:
+        return (
+            f'<circle cx="{x:.2f}" cy="{y:.2f}" r="13" fill="#FFFFFF" opacity="0.95"/>'
+            f'<circle cx="{x:.2f}" cy="{y:.2f}" r="8" fill="{config["marker_color"]}" '
+            f'stroke="#333333" stroke-width="1.5"/>'
+        )
+    return (
+        f'<circle cx="{x:.2f}" cy="{y:.2f}" r="4.5" fill="#FFFFFF" '
+        f'opacity="0.85" stroke="#333333" stroke-width="1.25"/>'
+    )
+
+
+def add_city_markers(
+    source: Path,
+    destination: Path,
+    config: dict,
+    cities: list[dict[str, str]],
+    highlighted_city: dict[str, str],
+) -> None:
     svg = source.read_text(encoding="utf-8")
     svg = svg.replace(config["highlight_color"], config["neutral_color"])
-    x, y = project_city(float(city["latitude"]), float(city["longitude"]), config["projection"])
+    other_markers = [
+        city_marker(city, config, highlighted=False)
+        for city in cities
+        if city is not highlighted_city
+    ]
+    highlighted_marker = city_marker(highlighted_city, config, highlighted=True)
     marker = (
-        f'\n<g id="gaz-city-marker" aria-label="City location">'
-        f'<circle cx="{x:.2f}" cy="{y:.2f}" r="13" fill="#FFFFFF" opacity="0.95"/>'
-        f'<circle cx="{x:.2f}" cy="{y:.2f}" r="8" fill="{config["marker_color"]}" '
-        f'stroke="#333333" stroke-width="1.5"/></g>\n'
+        f'\n<g id="gaz-city-markers" aria-label="City locations">'
+        f'{"".join(other_markers)}{highlighted_marker}</g>\n'
     )
     svg = svg.replace("</svg>", f"{marker}</svg>")
     destination.write_text(svg, encoding="utf-8")
@@ -145,9 +168,10 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
 
     base_svg = cached_by_code[config["base_subdivision_code"]]
     city_rows: list[dict[str, str]] = []
-    for row_number, city in enumerate(read_csv(data_dir / "cities.csv"), start=1):
+    cities = read_csv(data_dir / "cities.csv")
+    for row_number, city in enumerate(cities, start=1):
         filename = city_filename(country_code, city["city_native"])
-        add_city_marker(base_svg, MEDIA_DIR / filename, config, city)
+        add_city_markers(base_svg, MEDIA_DIR / filename, config, cities, city)
         city_rows.append({
             "sort_key": row_sort_key(config, row_number),
             "country_sort_key": country_sort_key(config),

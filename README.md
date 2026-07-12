@@ -43,7 +43,8 @@ A practical selection rule is:
 
 Each city has latitude and longitude in the source CSV. The generator projects
 those coordinates onto the same Wikimedia locator-map canvas used by the state
-cards, neutralizes the highlighted state, and adds a red dot with a white halo.
+cards, neutralizes the highlighted state, adds hollow dots for every city in the
+country, and highlights the current city as the only filled red dot.
 Country-specific projection calibration lives in `data/DEU/map.json`.
 
 ## Sort order
