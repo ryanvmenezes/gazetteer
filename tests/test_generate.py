@@ -24,6 +24,10 @@ class GenerateTests(unittest.TestCase):
         self.assertEqual(generate.country_sort_key(config), "01_DEU")
         self.assertEqual(generate.row_sort_key(config, 7), "01_DEU_007")
 
+    def test_english_output_is_blank_when_it_matches_native(self):
+        self.assertEqual(generate.english_if_different("Berlin", "Berlin"), "")
+        self.assertEqual(generate.english_if_different("Bayern", "Bavaria"), "Bavaria")
+
     def test_not_capital_is_blank_for_capitals_and_true_for_others(self):
         self.assertEqual(generate.not_capital_value({"is_capital": "y"}), "")
         self.assertEqual(generate.not_capital_value({"is_capital": "n"}), "true")

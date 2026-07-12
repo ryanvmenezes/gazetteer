@@ -83,6 +83,10 @@ def row_sort_key(config: dict, row_number: int) -> str:
     return f'{int(config["country_order"]):02d}_{config["country_code"]}_{row_number:03d}'
 
 
+def english_if_different(native: str, english: str) -> str:
+    return "" if native == english else english
+
+
 def not_capital_value(city: dict[str, str]) -> str:
     return "true" if city["is_capital"].lower() != "y" else ""
 
@@ -167,9 +171,17 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
             "country_native": config["country_native"],
             "country_english": config["country_english"],
             "subdivision_native": subdivision["subdivision_native"],
-            "subdivision_english": subdivision["subdivision_english"],
+            "subdivision_english": english_if_different(
+                subdivision["subdivision_native"],
+                subdivision["subdivision_english"],
+            ),
+            "subdivision_type_native": subdivision["subdivision_type_native"],
+            "subdivision_type_english": subdivision["subdivision_type_english"],
             "capital_native": subdivision["capital_native"],
-            "capital_english": subdivision["capital_english"],
+            "capital_english": english_if_different(
+                subdivision["capital_native"],
+                subdivision["capital_english"],
+            ),
             "subdivision_code": subdivision["subdivision_code"],
             "map_image": f'<img src="{filename}" />',
             "map_filename": filename,
@@ -192,7 +204,10 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
             "city_english": city["city_english"],
             "not_capital": not_capital_value(city),
             "subdivision_native": city["subdivision_native"],
-            "subdivision_english": city["subdivision_english"],
+            "subdivision_english": english_if_different(
+                city["subdivision_native"],
+                city["subdivision_english"],
+            ),
             "latitude": city["latitude"],
             "longitude": city["longitude"],
             "map_image": f'<img src="{filename}" />',

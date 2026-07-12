@@ -57,9 +57,13 @@ follows the source CSV, so it also remains deliberate and stable.
 ## Adding a country
 
 Create `data/<ISO3>/subdivisions.csv`, `cities.csv`, and `map.json` following
-`data/DEU`. Give the country a unique `country_order`. The generator is
-data-driven, so no Python changes should be needed for countries whose
-Wikimedia locator maps use the same pattern.
+`data/DEU`. Give the country a unique `country_order`. In source CSVs, include
+English labels even when they match the native label; generated CSVs leave
+duplicate English subdivision and capital fields blank. Subdivision source rows
+also include native and English type labels, such as `Land` / `State` or
+`Freistaat` / `Free State`. The generator is data-driven, so no Python changes
+should be needed for countries whose Wikimedia locator maps use the same
+pattern.
 
 ## GitHub workflow
 
