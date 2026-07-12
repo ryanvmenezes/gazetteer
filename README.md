@@ -30,9 +30,9 @@ scripts/copy_media_to_anki.sh "/path/to/Anki2/Profile/collection.media"
 
 ## Choosing cities
 
-`data/DEU/cities.csv` begins with every state capital plus Köln. A useful
-next tier would be nationally prominent non-capitals such as Frankfurt am Main,
-Leipzig, Dortmund, Essen, Nürnberg, Heidelberg, and Freiburg im Breisgau.
+`data/DEU/cities.csv` begins with every state capital plus selected prominent
+non-capitals. The generator emits city cards for every listed city so the deck
+can test where capitals and other notable cities sit within their subdivisions.
 
 A practical selection rule is:
 
@@ -43,8 +43,8 @@ A practical selection rule is:
 
 Each city has latitude and longitude in the source CSV. The generator projects
 those coordinates onto the same Wikimedia locator-map canvas used by the state
-cards, neutralizes the highlighted state, adds hollow dots for every city in the
-country, and highlights the current city as the only filled red dot.
+cards, neutralizes the highlighted state, adds hollow dots for every listed city
+in the country, and highlights the current city as the only filled red dot.
 Country-specific projection calibration lives in `data/DEU/map.json`.
 
 ## Sort order

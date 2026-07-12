@@ -70,12 +70,21 @@ def city_filename(country_code: str, city_native: str) -> str:
     return f"gaz-{country_code.lower()}-city-{slug(city_native)}.svg"
 
 
+def clear_country_media(country_code: str) -> None:
+    for path in MEDIA_DIR.glob(f"gaz-{country_code.lower()}-*.svg"):
+        path.unlink()
+
+
 def country_sort_key(config: dict) -> str:
     return f'{int(config["country_order"]):02d}_{config["country_code"]}'
 
 
 def row_sort_key(config: dict, row_number: int) -> str:
     return f'{int(config["country_order"]):02d}_{config["country_code"]}_{row_number:03d}'
+
+
+def not_capital_value(city: dict[str, str]) -> str:
+    return "true" if city["is_capital"].lower() != "y" else ""
 
 
 def project_city(latitude: float, longitude: float, projection: dict[str, float]) -> tuple[float, float]:
@@ -131,6 +140,7 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
     cache_dir = PROJECT_DIR / "cache" / country_code
     cache_dir.mkdir(parents=True, exist_ok=True)
     MEDIA_DIR.mkdir(parents=True, exist_ok=True)
+    clear_country_media(country_code)
 
     subdivision_rows: list[dict[str, str]] = []
     cached_by_code: dict[str, Path] = {}
@@ -180,7 +190,7 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
             "country_english": config["country_english"],
             "city_native": city["city_native"],
             "city_english": city["city_english"],
-            "is_capital": city["is_capital"],
+            "not_capital": not_capital_value(city),
             "subdivision_native": city["subdivision_native"],
             "subdivision_english": city["subdivision_english"],
             "latitude": city["latitude"],
