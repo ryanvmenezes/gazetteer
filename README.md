@@ -4,10 +4,19 @@ Gazetteer builds Anki-ready geography datasets and locator maps one country at
 a time. Generated media filenames begin with `gaz-`, making them easy to find
 in Anki's `collection.media` directory.
 
-Gazetteer always produces two growing Anki imports across all countries:
+Gazetteer produces a separate set of Anki imports for each country. Every
+country currently has:
 
-- `gazetteer_subdivisions.csv`: identify a subdivision and review its capital.
-- `gazetteer_cities.csv`: identify a marked city and review its subdivision.
+- `outputs/<ISO3>/subdivisions.csv`: identify a subdivision and review its capital.
+- `outputs/<ISO3>/cities.csv`: identify a marked city and review its subdivision.
+
+Countries can add further imports for country-specific material, such as a
+historical subdivision mapping. SVG files for each country live alongside its
+CSVs in `outputs/<ISO3>/media/`.
+
+Generated CSVs begin with Anki-native `#separator` and `#columns` metadata.
+Anki uses these lines to configure the import and display field names without
+creating a note from an ordinary header row.
 
 ## Generate Deck Data
 
@@ -17,10 +26,9 @@ python3 scripts/generate.py
 
 The command generates every country under `data/`. To build selected countries,
 pass their ISO alpha-3 codes, for example `python3 scripts/generate.py DEU`.
-It downloads Wikimedia Commons locator SVGs into `cache/` and writes the two
-consolidated CSVs plus Anki media to `outputs/`. The cache and generated
-outputs are deliberately excluded from Git; the source data and generator are
-the reproducible project.
+It downloads Wikimedia Commons locator SVGs into `cache/` and writes each
+country's CSVs and Anki media to `outputs/<ISO3>/`. Cache and generated media
+are ignored by Git; generated CSVs are tracked.
 
 To copy all generated media into Anki:
 
@@ -49,14 +57,20 @@ Country-specific projection calibration lives in `data/DEU/map.json`.
 
 ## Sort order
 
-Every row has a `country_sort_key` such as `01_DEU` and a unique `sort_key`
-such as `01_DEU_007`. The sequence number comes first in the Anki sort key so
-countries follow `country_order` instead of sorting alphabetically. Row order
-follows the source CSV, so it also remains deliberate and stable.
+Every row has a unique `sort_key` containing the ISO3 country code, a numbered
+note-family namespace, and the source row number. For example, German
+subdivision keys look like `DEU_01_SUB1_007`, while city keys look like
+`DEU_02_CITY_007`. This keeps cities and subdivisions distinct when they share
+an Anki deck. Additional country-specific imports can use subsequent family
+numbers such as `03` and `04`.
+
+Within each note family, row order follows the source CSV, so it remains
+deliberate and stable. `country_order` controls generation order but is omitted
+from keys because each country's datasets live in their own output folder.
 
 Treat row order as append-only once a CSV has been imported into Anki. Anki uses
-`sort_key` to update existing notes, so new cities or subdivisions should be
-added at the end of their source CSV regardless of alphabetical order.
+`sort_key` to update existing notes, so new records should be added at the end
+of their source CSV regardless of alphabetical order.
 
 ## Adding a country
 

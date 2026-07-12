@@ -1,4 +1,5 @@
 import importlib.util
+import csv
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -12,6 +13,20 @@ SPEC.loader.exec_module(generate)
 
 
 class GenerateTests(unittest.TestCase):
+    def test_write_csv_uses_anki_file_headers(self):
+        rows = [{"sort_key": "DEU_01_SUB1_001", "name": "Bayern"}]
+        with TemporaryDirectory() as directory:
+            output = Path(directory) / "subdivisions.csv"
+            generate.write_csv(output, rows)
+            lines = output.read_text(encoding="utf-8").splitlines()
+
+        self.assertEqual(lines[0], "#separator:Comma")
+        self.assertEqual(lines[1], "#columns:sort_key,name")
+        self.assertEqual(
+            next(csv.reader([lines[2]])),
+            ["DEU_01_SUB1_001", "Bayern"],
+        )
+
     def test_gazetteer_filenames(self):
         self.assertEqual(
             generate.subdivision_filename("DEU", "DE-BY"),
@@ -21,8 +36,14 @@ class GenerateTests(unittest.TestCase):
 
     def test_sort_keys_preserve_country_and_row_order(self):
         config = {"country_code": "DEU", "country_order": 1}
-        self.assertEqual(generate.country_sort_key(config), "01_DEU")
-        self.assertEqual(generate.row_sort_key(config, 7), "01_DEU_007")
+        self.assertEqual(
+            generate.row_sort_key(config, 1, "SUB1", 7),
+            "DEU_01_SUB1_007",
+        )
+        self.assertEqual(
+            generate.row_sort_key(config, 2, "CITY", 7),
+            "DEU_02_CITY_007",
+        )
 
     def test_english_output_is_blank_when_it_matches_native(self):
         self.assertEqual(generate.english_if_different("Berlin", "Berlin"), "")

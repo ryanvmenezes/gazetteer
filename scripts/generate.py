@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate consolidated Anki CSVs and SVG locator maps."""
+"""Generate country-scoped Anki CSVs and SVG locator maps."""
 
 from __future__ import annotations
 
@@ -17,7 +17,6 @@ from pathlib import Path
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = PROJECT_DIR / "data"
 OUTPUT_DIR = PROJECT_DIR / "outputs"
-MEDIA_DIR = OUTPUT_DIR / "media"
 COMMONS_REDIRECT = "https://commons.wikimedia.org/wiki/Special:Redirect/file"
 COMMONS_FILE_PAGE = "https://commons.wikimedia.org/wiki/File:"
 USER_AGENT = "GazetteerAnki/0.2 (personal study deck)"
@@ -33,8 +32,10 @@ def write_csv(path: Path, rows: list[dict[str, str]]) -> None:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
-        writer.writeheader()
+        fieldnames = list(rows[0])
+        handle.write("#separator:Comma\n")
+        csv.writer(handle).writerow([f"#columns:{fieldnames[0]}", *fieldnames[1:]])
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writerows(rows)
 
 
@@ -70,17 +71,21 @@ def city_filename(country_code: str, city_native: str) -> str:
     return f"gaz-{country_code.lower()}-city-{slug(city_native)}.svg"
 
 
-def clear_country_media(country_code: str) -> None:
-    for path in MEDIA_DIR.glob(f"gaz-{country_code.lower()}-*.svg"):
+def clear_country_media(media_dir: Path, country_code: str) -> None:
+    for path in media_dir.glob(f"gaz-{country_code.lower()}-*.svg"):
         path.unlink()
 
 
-def country_sort_key(config: dict) -> str:
-    return f'{int(config["country_order"]):02d}_{config["country_code"]}'
-
-
-def row_sort_key(config: dict, row_number: int) -> str:
-    return f'{int(config["country_order"]):02d}_{config["country_code"]}_{row_number:03d}'
+def row_sort_key(
+    config: dict,
+    family_order: int,
+    family_code: str,
+    row_number: int,
+) -> str:
+    return (
+        f'{config["country_code"]}_{family_order:02d}_{family_code}_'
+        f'{row_number:03d}'
+    )
 
 
 def english_if_different(native: str, english: str) -> str:
@@ -142,9 +147,11 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
     config = json.loads((data_dir / "map.json").read_text(encoding="utf-8"))
     country_code = config["country_code"]
     cache_dir = PROJECT_DIR / "cache" / country_code
+    country_output_dir = OUTPUT_DIR / country_code
+    media_dir = country_output_dir / "media"
     cache_dir.mkdir(parents=True, exist_ok=True)
-    MEDIA_DIR.mkdir(parents=True, exist_ok=True)
-    clear_country_media(country_code)
+    media_dir.mkdir(parents=True, exist_ok=True)
+    clear_country_media(media_dir, country_code)
 
     subdivision_rows: list[dict[str, str]] = []
     cached_by_code: dict[str, Path] = {}
@@ -163,10 +170,9 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
         cached_by_code[subdivision["subdivision_code"]] = cached_svg
 
         filename = subdivision_filename(country_code, subdivision["subdivision_code"])
-        shutil.copy2(cached_svg, MEDIA_DIR / filename)
+        shutil.copy2(cached_svg, media_dir / filename)
         subdivision_rows.append({
-            "sort_key": row_sort_key(config, row_number),
-            "country_sort_key": country_sort_key(config),
+            "sort_key": row_sort_key(config, 1, "SUB1", row_number),
             "country_code": country_code,
             "country_native": config["country_native"],
             "country_english": config["country_english"],
@@ -193,10 +199,9 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
     cities = read_csv(data_dir / "cities.csv")
     for row_number, city in enumerate(cities, start=1):
         filename = city_filename(country_code, city["city_native"])
-        add_city_markers(base_svg, MEDIA_DIR / filename, config, cities, city)
+        add_city_markers(base_svg, media_dir / filename, config, cities, city)
         city_rows.append({
-            "sort_key": row_sort_key(config, row_number),
-            "country_sort_key": country_sort_key(config),
+            "sort_key": row_sort_key(config, 2, "CITY", row_number),
             "country_code": country_code,
             "country_native": config["country_native"],
             "country_english": config["country_english"],
@@ -216,6 +221,8 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
             "map_image": f'<img src="{filename}" />',
             "map_filename": filename,
         })
+    write_csv(country_output_dir / "subdivisions.csv", subdivision_rows)
+    write_csv(country_output_dir / "cities.csv", city_rows)
     return subdivision_rows, city_rows
 
 
@@ -234,18 +241,16 @@ def country_directories(selected: list[str] | None) -> list[Path]:
 
 
 def generate(selected: list[str] | None, seed_dir: Path | None) -> None:
-    all_subdivisions: list[dict[str, str]] = []
-    all_cities: list[dict[str, str]] = []
+    subdivision_count = 0
+    city_count = 0
     for data_dir in country_directories(selected):
         subdivisions, cities = generate_country(data_dir, seed_dir)
-        all_subdivisions.extend(subdivisions)
-        all_cities.extend(cities)
+        subdivision_count += len(subdivisions)
+        city_count += len(cities)
 
-    write_csv(OUTPUT_DIR / "gazetteer_subdivisions.csv", all_subdivisions)
-    write_csv(OUTPUT_DIR / "gazetteer_cities.csv", all_cities)
     print(
-        f"Wrote {len(all_subdivisions)} subdivisions, {len(all_cities)} cities, "
-        f"and {len(all_subdivisions) + len(all_cities)} maps to {OUTPUT_DIR}"
+        f"Wrote {subdivision_count} subdivisions, {city_count} cities, "
+        f"and {subdivision_count + city_count} maps to country folders in {OUTPUT_DIR}"
     )
 
 

@@ -1,8 +1,5 @@
 .DS_Store
-outputs/*
-!outputs/gazetteer_cities.csv
-!outputs/gazetteer_subdivisions.csv
-outputs/media/
+outputs/**/media/
 cache/
 __pycache__/
 *.pyc
