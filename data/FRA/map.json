@@ -16,6 +16,9 @@
   "context_marker_radius": 12,
   "context_marker_stroke_width": 3,
   "map_omitted_cities": ["Ajaccio"],
+  "subdivision_type_english_overrides": {
+    "Region (1982–2015)": "Previous Region"
+  },
   "projection": {
     "longitude_min": -5.0,
     "longitude_max": 10.0,

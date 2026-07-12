@@ -54,9 +54,11 @@ historical-region cards can omit redundant capital questions; only cities that
 were neither kind of capital use `true`.
 
 French maps omit the overseas inset layer because those small locator boxes do
-not provide useful world context. The five overseas rows remain in both region
-CSVs, but their `map_image` and `map_filename` fields are blank and no
-corresponding SVGs are generated. The source URL remains for attribution.
+not provide useful world context. The five overseas rows remain in the current
+region CSV, but their `map_image` and `map_filename` fields are blank and no
+corresponding SVGs are generated. The historical-with-parent file omits those
+unchanged regions and Corsica because they have no transition to quiz. The
+source URL remains for attribution.
 Ajaccio remains in the city CSV as Corsica's capital, but its map fields are
 blank and it is omitted from city-map context dots because the displaced
 Corsica rendering does not provide useful locator context.

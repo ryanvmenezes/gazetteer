@@ -322,7 +322,12 @@ def subdivision_output_row(
             subdivision["subdivision_native"], subdivision["subdivision_english"]
         ),
         "subdivision_type_native": subdivision["subdivision_type_native"],
-        "subdivision_type_english": subdivision["subdivision_type_english"],
+        "subdivision_type_english": config.get(
+            "subdivision_type_english_overrides", {}
+        ).get(
+            subdivision["subdivision_type_english"],
+            subdivision["subdivision_type_english"],
+        ),
         "capital_native": subdivision["capital_native"],
         "capital_english": english_if_different(
             subdivision["capital_native"], subdivision["capital_english"]
@@ -467,7 +472,12 @@ def generate_subdivision_set(
                 subdivision["subdivision_english"],
             ),
             "subdivision_type_native": subdivision["subdivision_type_native"],
-            "subdivision_type_english": subdivision["subdivision_type_english"],
+            "subdivision_type_english": config.get(
+                "subdivision_type_english_overrides", {}
+            ).get(
+                subdivision["subdivision_type_english"],
+                subdivision["subdivision_type_english"],
+            ),
             "capital_native": subdivision["capital_native"],
             "capital_english": english_if_different(
                 subdivision["capital_native"],
