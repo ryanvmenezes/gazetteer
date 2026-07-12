@@ -201,7 +201,10 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
             "country_native": config["country_native"],
             "country_english": config["country_english"],
             "city_native": city["city_native"],
-            "city_english": city["city_english"],
+            "city_english": english_if_different(
+                city["city_native"],
+                city["city_english"],
+            ),
             "not_capital": not_capital_value(city),
             "subdivision_native": city["subdivision_native"],
             "subdivision_english": english_if_different(

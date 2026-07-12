@@ -54,12 +54,16 @@ such as `01_DEU_007`. The sequence number comes first in the Anki sort key so
 countries follow `country_order` instead of sorting alphabetically. Row order
 follows the source CSV, so it also remains deliberate and stable.
 
+Treat row order as append-only once a CSV has been imported into Anki. Anki uses
+`sort_key` to update existing notes, so new cities or subdivisions should be
+added at the end of their source CSV regardless of alphabetical order.
+
 ## Adding a country
 
 Create `data/<ISO3>/subdivisions.csv`, `cities.csv`, and `map.json` following
 `data/DEU`. Give the country a unique `country_order`. In source CSVs, include
 English labels even when they match the native label; generated CSVs leave
-duplicate English subdivision and capital fields blank. Subdivision source rows
+duplicate English city, subdivision, and capital fields blank. Subdivision source rows
 also include native and English type labels, such as `Land` / `State` or
 `Freistaat` / `Free State`. The generator is data-driven, so no Python changes
 should be needed for countries whose Wikimedia locator maps use the same
