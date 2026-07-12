@@ -1,17 +1,17 @@
-subdivision_native,subdivision_english,subdivision_type_native,subdivision_type_english,subdivision_level,parent_subdivision_code,capital_native,capital_english,subdivision_code,commons_file
-Baden-Württemberg,Baden-Württemberg,Land,State,1,,Stuttgart,Stuttgart,DE-BW,Locator map Baden-Württemberg in Germany.svg
-Bayern,Bavaria,Freistaat,Free State,1,,München,Munich,DE-BY,Locator map Bavaria in Germany.svg
-Berlin,Berlin,Land,State,1,,Berlin,Berlin,DE-BE,Locator map Berlin in Germany.svg
-Brandenburg,Brandenburg,Land,State,1,,Potsdam,Potsdam,DE-BB,Locator map Brandenburg in Germany.svg
-Bremen,Bremen,Freie Hansestadt,Free Hanseatic City,1,,Bremen,Bremen,DE-HB,Locator map Bremen in Germany.svg
-Hamburg,Hamburg,Freie und Hansestadt,Free and Hanseatic City,1,,Hamburg,Hamburg,DE-HH,Locator map Hamburg in Germany.svg
-Hessen,Hesse,Land,State,1,,Wiesbaden,Wiesbaden,DE-HE,Locator map Hesse in Germany.svg
-Mecklenburg-Vorpommern,Mecklenburg-Western Pomerania,Land,State,1,,Schwerin,Schwerin,DE-MV,Locator map Mecklenburg-Vorpommern in Germany.svg
-Niedersachsen,Lower Saxony,Land,State,1,,Hannover,Hanover,DE-NI,Locator map Lower-Saxony in Germany.svg
-Nordrhein-Westfalen,North Rhine-Westphalia,Land,State,1,,Düsseldorf,Düsseldorf,DE-NW,Locator map North Rhine-Westphalia in Germany.svg
-Rheinland-Pfalz,Rhineland-Palatinate,Land,State,1,,Mainz,Mainz,DE-RP,Locator map Rhineland-Palatinate in Germany.svg
-Saarland,Saarland,Land,State,1,,Saarbrücken,Saarbrücken,DE-SL,Locator map Saarland in Germany.svg
-Sachsen,Saxony,Freistaat,Free State,1,,Dresden,Dresden,DE-SN,Locator map Saxony in Germany.svg
-Sachsen-Anhalt,Saxony-Anhalt,Land,State,1,,Magdeburg,Magdeburg,DE-ST,Locator map Saxony-Anhalt in Germany.svg
-Schleswig-Holstein,Schleswig-Holstein,Land,State,1,,Kiel,Kiel,DE-SH,Locator map Schleswig-Holstein in Germany.svg
-Thüringen,Thuringia,Freistaat,Free State,1,,Erfurt,Erfurt,DE-TH,Locator map Thuringia in Germany.svg
+subdivision_native,subdivision_english,subdivision_type_native,subdivision_type_english,capital_native,capital_english,subdivision_code,commons_file
+Baden-Württemberg,Baden-Württemberg,Land,State,Stuttgart,Stuttgart,DE-BW,Locator map Baden-Württemberg in Germany.svg
+Bayern,Bavaria,Freistaat,Free State,München,Munich,DE-BY,Locator map Bavaria in Germany.svg
+Berlin,Berlin,Land,State,Berlin,Berlin,DE-BE,Locator map Berlin in Germany.svg
+Brandenburg,Brandenburg,Land,State,Potsdam,Potsdam,DE-BB,Locator map Brandenburg in Germany.svg
+Bremen,Bremen,Freie Hansestadt,Free Hanseatic City,Bremen,Bremen,DE-HB,Locator map Bremen in Germany.svg
+Hamburg,Hamburg,Freie und Hansestadt,Free and Hanseatic City,Hamburg,Hamburg,DE-HH,Locator map Hamburg in Germany.svg
+Hessen,Hesse,Land,State,Wiesbaden,Wiesbaden,DE-HE,Locator map Hesse in Germany.svg
+Mecklenburg-Vorpommern,Mecklenburg-Western Pomerania,Land,State,Schwerin,Schwerin,DE-MV,Locator map Mecklenburg-Vorpommern in Germany.svg
+Niedersachsen,Lower Saxony,Land,State,Hannover,Hanover,DE-NI,Locator map Lower-Saxony in Germany.svg
+Nordrhein-Westfalen,North Rhine-Westphalia,Land,State,Düsseldorf,Düsseldorf,DE-NW,Locator map North Rhine-Westphalia in Germany.svg
+Rheinland-Pfalz,Rhineland-Palatinate,Land,State,Mainz,Mainz,DE-RP,Locator map Rhineland-Palatinate in Germany.svg
+Saarland,Saarland,Land,State,Saarbrücken,Saarbrücken,DE-SL,Locator map Saarland in Germany.svg
+Sachsen,Saxony,Freistaat,Free State,Dresden,Dresden,DE-SN,Locator map Saxony in Germany.svg
+Sachsen-Anhalt,Saxony-Anhalt,Land,State,Magdeburg,Magdeburg,DE-ST,Locator map Saxony-Anhalt in Germany.svg
+Schleswig-Holstein,Schleswig-Holstein,Land,State,Kiel,Kiel,DE-SH,Locator map Schleswig-Holstein in Germany.svg
+Thüringen,Thuringia,Freistaat,Free State,Erfurt,Erfurt,DE-TH,Locator map Thuringia in Germany.svg
