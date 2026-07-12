@@ -48,7 +48,7 @@ Country-specific projection calibration lives in `data/DEU/map.json`.
 
 ## Sort order
 
-Every row has a `country_sort_key` such as `DEU_01` and a unique `sort_key`
+Every row has a `country_sort_key` such as `01_DEU` and a unique `sort_key`
 such as `01_DEU_007`. The sequence number comes first in the Anki sort key so
 countries follow `country_order` instead of sorting alphabetically. Row order
 follows the source CSV, so it also remains deliberate and stable.

@@ -71,7 +71,7 @@ def city_filename(country_code: str, city_native: str) -> str:
 
 
 def country_sort_key(config: dict) -> str:
-    return f'{config["country_code"]}_{int(config["country_order"]):02d}'
+    return f'{int(config["country_order"]):02d}_{config["country_code"]}'
 
 
 def row_sort_key(config: dict, row_number: int) -> str:

@@ -21,7 +21,7 @@ class GenerateTests(unittest.TestCase):
 
     def test_sort_keys_preserve_country_and_row_order(self):
         config = {"country_code": "DEU", "country_order": 1}
-        self.assertEqual(generate.country_sort_key(config), "DEU_01")
+        self.assertEqual(generate.country_sort_key(config), "01_DEU")
         self.assertEqual(generate.row_sort_key(config, 7), "01_DEU_007")
 
     def test_city_marker_is_injected_and_highlight_is_neutralized(self):
