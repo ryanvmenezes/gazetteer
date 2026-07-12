@@ -134,6 +134,28 @@ class GenerateTests(unittest.TestCase):
         self.assertIn('stroke-width="1.25"', rendered)
         self.assertIn('<path fill="#FEFEE9"/>', rendered)
 
+    def test_city_markers_support_namespaced_svg_closing_tag(self):
+        config = {
+            "highlight_color": "#C11E1E",
+            "neutral_color": "#FEFEE9",
+            "marker_color": "#C11E1E",
+            "projection": {
+                "longitude_min": 0, "longitude_max": 1,
+                "latitude_min": 0, "latitude_max": 1,
+                "x_min": 0, "x_max": 1, "y_min": 0, "y_max": 1,
+            },
+        }
+        city = {"latitude": "0.5", "longitude": "0.5"}
+        with TemporaryDirectory() as directory:
+            source = Path(directory) / "source.svg"
+            output = Path(directory) / "output.svg"
+            source.write_text("<ns0:svg></ns0:svg>", encoding="utf-8")
+            generate.add_city_markers(source, output, config, [city], city)
+            rendered = output.read_text(encoding="utf-8")
+
+        self.assertIn('id="gaz-city-markers"', rendered)
+        self.assertTrue(rendered.endswith("</ns0:svg>"))
+
     def test_template_maps_reveal_department_layer_and_highlight_targets(self):
         svg = '''<svg xmlns="http://www.w3.org/2000/svg"
             xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">

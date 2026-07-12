@@ -22,6 +22,11 @@ COMMONS_REDIRECT = "https://commons.wikimedia.org/wiki/Special:Redirect/file"
 COMMONS_FILE_PAGE = "https://commons.wikimedia.org/wiki/File:"
 USER_AGENT = "GazetteerAnki/0.2 (personal study deck)"
 
+ET.register_namespace("", "http://www.w3.org/2000/svg")
+ET.register_namespace("inkscape", "http://www.inkscape.org/namespaces/inkscape")
+ET.register_namespace("sodipodi", "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd")
+ET.register_namespace("xlink", "http://www.w3.org/1999/xlink")
+
 
 def read_csv(path: Path) -> list[dict[str, str]]:
     with path.open(encoding="utf-8", newline="") as handle:
@@ -142,16 +147,24 @@ def project_city(latitude: float, longitude: float, projection: dict[str, float]
 
 
 def city_marker(city: dict[str, str], config: dict, highlighted: bool) -> str:
-    x, y = project_city(float(city["latitude"]), float(city["longitude"]), config["projection"])
+    if city.get("map_x") and city.get("map_y"):
+        x, y = float(city["map_x"]), float(city["map_y"])
+    else:
+        x, y = project_city(float(city["latitude"]), float(city["longitude"]), config["projection"])
     if highlighted:
+        halo_radius = config.get("highlighted_marker_halo_radius", 18)
+        marker_radius = config.get("highlighted_marker_radius", 11)
+        marker_stroke_width = config.get("highlighted_marker_stroke_width", 2)
         return (
-            f'<circle cx="{x:.2f}" cy="{y:.2f}" r="18" fill="#FFFFFF" opacity="0.95"/>'
-            f'<circle cx="{x:.2f}" cy="{y:.2f}" r="11" fill="{config["marker_color"]}" '
-            f'stroke="#333333" stroke-width="2"/>'
+            f'<circle cx="{x:.2f}" cy="{y:.2f}" r="{halo_radius}" fill="#FFFFFF" opacity="0.95"/>'
+            f'<circle cx="{x:.2f}" cy="{y:.2f}" r="{marker_radius}" fill="{config["marker_color"]}" '
+            f'stroke="#333333" stroke-width="{marker_stroke_width}"/>'
         )
+    context_radius = config.get("context_marker_radius", 4.5)
+    context_stroke_width = config.get("context_marker_stroke_width", 1.25)
     return (
-        f'<circle cx="{x:.2f}" cy="{y:.2f}" r="4.5" fill="#FFFFFF" '
-        f'opacity="0.85" stroke="#333333" stroke-width="1.25"/>'
+        f'<circle cx="{x:.2f}" cy="{y:.2f}" r="{context_radius}" fill="#FFFFFF" '
+        f'opacity="0.85" stroke="#333333" stroke-width="{context_stroke_width}"/>'
     )
 
 
@@ -174,7 +187,13 @@ def add_city_markers(
         f'\n<g id="gaz-city-markers" aria-label="City locations">'
         f'{"".join(other_markers)}{highlighted_marker}</g>\n'
     )
-    svg = svg.replace("</svg>", f"{marker}</svg>")
+    svg, replacements = re.subn(
+        r"</(?:[A-Za-z_][A-Za-z0-9_.-]*:)?svg>\s*$",
+        lambda match: f"{marker}{match.group(0)}",
+        svg,
+    )
+    if replacements != 1:
+        raise ValueError(f"Expected one closing SVG tag in {source}; found {replacements}")
     destination.write_text(svg, encoding="utf-8")
 
 
@@ -322,7 +341,7 @@ def subdivision_output_row(
             "parent_subdivision_code": subdivision["parent_subdivision_code"],
         })
     output_row.update({
-        "map_image": f'<img src="{filename}" />',
+        "map_image": f'<img src="{filename}" />' if filename else "",
         "map_filename": filename,
         "map_source": source_url,
     })
@@ -340,10 +359,12 @@ def generate_template_subdivision_set(
     with_parent: bool = False,
 ) -> list[dict[str, str]]:
     subdivisions = read_csv(source_path)
+    omitted_target_ids = set(config.get("map_omitted_target_ids", []))
     all_target_ids = {
         target_id
         for subdivision in subdivisions
         for target_id in subdivision["map_target_ids"].split(";")
+        if target_id not in omitted_target_ids
     }
     template = prepare_svg_template(
         source_path.parent / config["map_template"],
@@ -354,13 +375,24 @@ def generate_template_subdivision_set(
     )
     rows = []
     for row_number, subdivision in enumerate(subdivisions, start=1):
+        target_ids = subdivision["map_target_ids"].split(";")
+        if set(target_ids).issubset(omitted_target_ids):
+            rows.append(subdivision_output_row(
+                subdivision,
+                config,
+                row_sort_key(config, family_order, family_code, row_number),
+                "",
+                config["map_source"],
+                with_parent,
+            ))
+            continue
         filename = subdivision_filename(
             config["country_code"], subdivision["subdivision_code"], media_kind
         )
         highlight_svg_template(
             template,
             media_dir / filename,
-            subdivision["map_target_ids"].split(";"),
+            target_ids,
             config["highlight_color"],
             config.get("map_target_companions", {}),
         )
@@ -487,6 +519,21 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
             media_kind="subdivision",
         )
         cached_by_code: dict[str, Path] = {}
+        current_subdivisions = read_csv(data_dir / "subdivisions.csv")
+        current_target_ids = {
+            target_id
+            for subdivision in current_subdivisions
+            for target_id in subdivision["map_target_ids"].split(";")
+            if target_id not in set(config.get("map_omitted_target_ids", []))
+        }
+        city_base_svg = cache_dir / "city-base.svg"
+        city_base_svg.write_bytes(prepare_svg_template(
+            data_dir / config["map_template"],
+            current_target_ids,
+            set(config["map_hidden_layers"]),
+            config["neutral_color"],
+            config.get("map_target_companions", {}),
+        ))
         if parent_source.exists():
             parent_rows = generate_template_subdivision_set(
                 parent_source,
@@ -527,11 +574,23 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
     city_rows: list[dict[str, str]] = []
     city_source = data_dir / "cities.csv"
     if city_source.exists():
-        base_svg = cached_by_code[config["base_subdivision_code"]]
+        base_svg = (
+            city_base_svg
+            if "map_template" in config
+            else cached_by_code[config["base_subdivision_code"]]
+        )
         cities = read_csv(city_source)
+        omitted_cities = set(config.get("map_omitted_cities", []))
+        mapped_cities = [
+            city for city in cities if city["city_native"] not in omitted_cities
+        ]
         for row_number, city in enumerate(cities, start=1):
-            filename = city_filename(country_code, city["city_native"])
-            add_city_markers(base_svg, media_dir / filename, config, cities, city)
+            filename = ""
+            if city["city_native"] not in omitted_cities:
+                filename = city_filename(country_code, city["city_native"])
+                add_city_markers(
+                    base_svg, media_dir / filename, config, mapped_cities, city
+                )
             city_rows.append({
                 "sort_key": row_sort_key(config, 2, "CITY", row_number),
                 "country_code": country_code,
@@ -550,7 +609,7 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
                 ),
                 "latitude": city["latitude"],
                 "longitude": city["longitude"],
-                "map_image": f'<img src="{filename}" />',
+                "map_image": f'<img src="{filename}" />' if filename else "",
                 "map_filename": filename,
             })
         write_csv(country_output_dir / "cities.csv", city_rows)
@@ -574,14 +633,20 @@ def country_directories(selected: list[str] | None) -> list[Path]:
 def generate(selected: list[str] | None, seed_dir: Path | None) -> None:
     subdivision_count = 0
     city_count = 0
+    map_count = 0
     for data_dir in country_directories(selected):
         subdivisions, cities = generate_country(data_dir, seed_dir)
         subdivision_count += len(subdivisions)
         city_count += len(cities)
+        map_count += len(list(
+            (OUTPUT_DIR / data_dir.name / "media").glob(
+                f"gaz-{data_dir.name.lower()}-*.svg"
+            )
+        ))
 
     print(
         f"Wrote {subdivision_count} subdivisions, {city_count} cities, "
-        f"and {subdivision_count + city_count} maps to country folders in {OUTPUT_DIR}"
+        f"and {map_count} maps to country folders in {OUTPUT_DIR}"
     )
 
 

@@ -1,0 +1,31 @@
+#separator:Comma
+#columns:sort_key,country_code,country_native,country_english,city_native,city_english,not_capital,subdivision_native,subdivision_english,latitude,longitude,map_image,map_filename
+FRA_02_CITY_001,FRA,France,France,Lyon,,,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,45.7640,4.8357,"<img src=""gaz-fra-city-lyon.svg"" />",gaz-fra-city-lyon.svg
+FRA_02_CITY_002,FRA,France,France,Clermont-Ferrand,,,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,45.7772,3.0870,"<img src=""gaz-fra-city-clermont-ferrand.svg"" />",gaz-fra-city-clermont-ferrand.svg
+FRA_02_CITY_003,FRA,France,France,Grenoble,,true,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,45.1885,5.7245,"<img src=""gaz-fra-city-grenoble.svg"" />",gaz-fra-city-grenoble.svg
+FRA_02_CITY_004,FRA,France,France,Saint-Étienne,,true,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,45.4397,4.3872,"<img src=""gaz-fra-city-saint-tienne.svg"" />",gaz-fra-city-saint-tienne.svg
+FRA_02_CITY_005,FRA,France,France,Dijon,,,Bourgogne-Franche-Comté,Burgundy-Free County,47.3220,5.0415,"<img src=""gaz-fra-city-dijon.svg"" />",gaz-fra-city-dijon.svg
+FRA_02_CITY_006,FRA,France,France,Besançon,,,Bourgogne-Franche-Comté,Burgundy-Free County,47.2378,6.0241,"<img src=""gaz-fra-city-besan-on.svg"" />",gaz-fra-city-besan-on.svg
+FRA_02_CITY_007,FRA,France,France,Rennes,,,Bretagne,Brittany,48.1173,-1.6778,"<img src=""gaz-fra-city-rennes.svg"" />",gaz-fra-city-rennes.svg
+FRA_02_CITY_008,FRA,France,France,Brest,,true,Bretagne,Brittany,48.3904,-4.4861,"<img src=""gaz-fra-city-brest.svg"" />",gaz-fra-city-brest.svg
+FRA_02_CITY_009,FRA,France,France,Orléans,,,Centre-Val de Loire,Centre-Loire Valley,47.9030,1.9093,"<img src=""gaz-fra-city-orl-ans.svg"" />",gaz-fra-city-orl-ans.svg
+FRA_02_CITY_010,FRA,France,France,Ajaccio,,,Corse,Corsica,41.9192,8.7386,,
+FRA_02_CITY_011,FRA,France,France,Strasbourg,,,Grand Est,,48.5734,7.7521,"<img src=""gaz-fra-city-strasbourg.svg"" />",gaz-fra-city-strasbourg.svg
+FRA_02_CITY_012,FRA,France,France,Châlons-en-Champagne,,,Grand Est,,48.9567,4.3631,"<img src=""gaz-fra-city-ch-lons-en-champagne.svg"" />",gaz-fra-city-ch-lons-en-champagne.svg
+FRA_02_CITY_013,FRA,France,France,Metz,,,Grand Est,,49.1193,6.1757,"<img src=""gaz-fra-city-metz.svg"" />",gaz-fra-city-metz.svg
+FRA_02_CITY_014,FRA,France,France,Reims,,true,Grand Est,,49.2583,4.0317,"<img src=""gaz-fra-city-reims.svg"" />",gaz-fra-city-reims.svg
+FRA_02_CITY_015,FRA,France,France,Lille,,,Hauts-de-France,,50.6292,3.0573,"<img src=""gaz-fra-city-lille.svg"" />",gaz-fra-city-lille.svg
+FRA_02_CITY_016,FRA,France,France,Amiens,,,Hauts-de-France,,49.8941,2.2958,"<img src=""gaz-fra-city-amiens.svg"" />",gaz-fra-city-amiens.svg
+FRA_02_CITY_017,FRA,France,France,Paris,,,Île-de-France,,48.8566,2.3522,"<img src=""gaz-fra-city-paris.svg"" />",gaz-fra-city-paris.svg
+FRA_02_CITY_018,FRA,France,France,Rouen,,,Normandie,Normandy,49.4432,1.0993,"<img src=""gaz-fra-city-rouen.svg"" />",gaz-fra-city-rouen.svg
+FRA_02_CITY_019,FRA,France,France,Caen,,,Normandie,Normandy,49.1829,-0.3707,"<img src=""gaz-fra-city-caen.svg"" />",gaz-fra-city-caen.svg
+FRA_02_CITY_020,FRA,France,France,Le Havre,,true,Normandie,Normandy,49.4944,0.1079,"<img src=""gaz-fra-city-le-havre.svg"" />",gaz-fra-city-le-havre.svg
+FRA_02_CITY_021,FRA,France,France,Bordeaux,,,Nouvelle-Aquitaine,New Aquitaine,44.8378,-0.5792,"<img src=""gaz-fra-city-bordeaux.svg"" />",gaz-fra-city-bordeaux.svg
+FRA_02_CITY_022,FRA,France,France,Limoges,,,Nouvelle-Aquitaine,New Aquitaine,45.8336,1.2611,"<img src=""gaz-fra-city-limoges.svg"" />",gaz-fra-city-limoges.svg
+FRA_02_CITY_023,FRA,France,France,Poitiers,,,Nouvelle-Aquitaine,New Aquitaine,46.5802,0.3404,"<img src=""gaz-fra-city-poitiers.svg"" />",gaz-fra-city-poitiers.svg
+FRA_02_CITY_024,FRA,France,France,Toulouse,,,Occitanie,Occitania,43.6047,1.4442,"<img src=""gaz-fra-city-toulouse.svg"" />",gaz-fra-city-toulouse.svg
+FRA_02_CITY_025,FRA,France,France,Montpellier,,,Occitanie,Occitania,43.6108,3.8767,"<img src=""gaz-fra-city-montpellier.svg"" />",gaz-fra-city-montpellier.svg
+FRA_02_CITY_026,FRA,France,France,Nîmes,,true,Occitanie,Occitania,43.8367,4.3601,"<img src=""gaz-fra-city-n-mes.svg"" />",gaz-fra-city-n-mes.svg
+FRA_02_CITY_027,FRA,France,France,Nantes,,,Pays de la Loire,,47.2184,-1.5536,"<img src=""gaz-fra-city-nantes.svg"" />",gaz-fra-city-nantes.svg
+FRA_02_CITY_028,FRA,France,France,Marseille,,,Provence-Alpes-Côte d'Azur,,43.2965,5.3698,"<img src=""gaz-fra-city-marseille.svg"" />",gaz-fra-city-marseille.svg
+FRA_02_CITY_029,FRA,France,France,Nice,,true,Provence-Alpes-Côte d'Azur,,43.7102,7.2620,"<img src=""gaz-fra-city-nice.svg"" />",gaz-fra-city-nice.svg

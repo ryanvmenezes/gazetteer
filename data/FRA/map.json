@@ -9,10 +9,29 @@
   "map_source": "https://commons.wikimedia.org/wiki/File:France_r%C3%A9gionale.svg",
   "highlight_color": "#C11E1E",
   "neutral_color": "#FEFEE9",
+  "marker_color": "#C11E1E",
+  "highlighted_marker_halo_radius": 43,
+  "highlighted_marker_radius": 28,
+  "highlighted_marker_stroke_width": 4,
+  "context_marker_radius": 12,
+  "context_marker_stroke_width": 3,
+  "map_omitted_cities": ["Ajaccio"],
+  "projection": {
+    "longitude_min": -5.0,
+    "longitude_max": 10.0,
+    "latitude_min": 41.3,
+    "latitude_max": 51.2,
+    "x_min": 117.0,
+    "x_max": 1831.0,
+    "y_min": 86.0,
+    "y_max": 1850.0
+  },
   "map_target_companions": {
     "69": ["g6422"]
   },
+  "map_omitted_target_ids": ["971", "972", "973", "974", "976"],
   "map_hidden_layers": [
+    "Encarts Départements d'Outre-Mer",
     "Régions Métropolitaines",
     "Départements gris",
     "Métropole de Lyon gris",

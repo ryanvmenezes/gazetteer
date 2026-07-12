@@ -45,6 +45,22 @@ the departments belonging to each current or former region. Thus both French
 map families are rebuilt locally from one source SVG rather than downloading a
 separate locator for every row.
 
+The French city deck uses this current-region template as its neutral base. It
+contains every metropolitan current regional capital, nine former regional
+capitals, and a small set of additional prominent cities. Overseas cities are
+omitted because their context dots are not useful at the inset-map scale. Both
+current and former regional capitals have a blank `not_capital` value so
+historical-region cards can omit redundant capital questions; only cities that
+were neither kind of capital use `true`.
+
+French maps omit the overseas inset layer because those small locator boxes do
+not provide useful world context. The five overseas rows remain in both region
+CSVs, but their `map_image` and `map_filename` fields are blank and no
+corresponding SVGs are generated. The source URL remains for attribution.
+Ajaccio remains in the city CSV as Corsica's capital, but its map fields are
+blank and it is omitted from city-map context dots because the displaced
+Corsica rendering does not provide useful locator context.
+
 To copy all generated media into Anki:
 
 ```bash
@@ -98,6 +114,14 @@ also include native and English type labels, such as `Land` / `State` or
 `Freistaat` / `Free State`. The generator is data-driven, so no Python changes
 should be needed for countries whose Wikimedia locator maps use the same
 pattern.
+
+## Future work
+
+France's SVG template already contains individually coded département shapes.
+A later second-level deck could use a file such as
+`subdivisions-with-parent--departments.csv`, current regions as parents, and a
+separate key family such as `FRA_04_SUB2_001`. This is intentionally deferred;
+the current French deck quizzes regions and cities only.
 
 ## GitHub workflow
 
