@@ -9,7 +9,7 @@ Gazetteer always produces two growing Anki imports across all countries:
 - `gazetteer_subdivisions.csv`: identify a subdivision and review its capital.
 - `gazetteer_cities.csv`: identify a marked city and review its subdivision.
 
-## Generate Germany
+## Generate Deck Data
 
 ```bash
 python3 scripts/generate.py
