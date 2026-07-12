@@ -82,7 +82,9 @@ class GenerateTests(unittest.TestCase):
 
         self.assertIn('id="gaz-city-markers"', rendered)
         self.assertIn('cx="50.00" cy="40.00"', rendered)
-        self.assertIn('r="13" fill="#FFFFFF"', rendered)
+        self.assertIn('r="18" fill="#FFFFFF"', rendered)
+        self.assertIn('r="11" fill="#C11E1E"', rendered)
+        self.assertIn('stroke-width="2"', rendered)
         self.assertIn('cx="60.00" cy="30.00" r="4.5" fill="#FFFFFF"', rendered)
         self.assertIn('stroke-width="1.25"', rendered)
         self.assertIn('<path fill="#FEFEE9"/>', rendered)

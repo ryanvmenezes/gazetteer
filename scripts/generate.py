@@ -110,9 +110,9 @@ def city_marker(city: dict[str, str], config: dict, highlighted: bool) -> str:
     x, y = project_city(float(city["latitude"]), float(city["longitude"]), config["projection"])
     if highlighted:
         return (
-            f'<circle cx="{x:.2f}" cy="{y:.2f}" r="13" fill="#FFFFFF" opacity="0.95"/>'
-            f'<circle cx="{x:.2f}" cy="{y:.2f}" r="8" fill="{config["marker_color"]}" '
-            f'stroke="#333333" stroke-width="1.5"/>'
+            f'<circle cx="{x:.2f}" cy="{y:.2f}" r="18" fill="#FFFFFF" opacity="0.95"/>'
+            f'<circle cx="{x:.2f}" cy="{y:.2f}" r="11" fill="{config["marker_color"]}" '
+            f'stroke="#333333" stroke-width="2"/>'
         )
     return (
         f'<circle cx="{x:.2f}" cy="{y:.2f}" r="4.5" fill="#FFFFFF" '
