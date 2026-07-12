@@ -1,0 +1,25 @@
+sort_key,country_sort_key,country_code,country_native,country_english,city_native,city_english,not_capital,subdivision_native,subdivision_english,latitude,longitude,map_image,map_filename
+01_DEU_001,01_DEU,DEU,Deutschland,Germany,Stuttgart,Stuttgart,,Baden-Württemberg,Baden-Württemberg,48.7758,9.1829,"<img src=""gaz-deu-city-stuttgart.svg"" />",gaz-deu-city-stuttgart.svg
+01_DEU_002,01_DEU,DEU,Deutschland,Germany,Heidelberg,Heidelberg,true,Baden-Württemberg,Baden-Württemberg,49.3988,8.6724,"<img src=""gaz-deu-city-heidelberg.svg"" />",gaz-deu-city-heidelberg.svg
+01_DEU_003,01_DEU,DEU,Deutschland,Germany,Freiburg im Breisgau,Freiburg im Breisgau,true,Baden-Württemberg,Baden-Württemberg,47.9990,7.8421,"<img src=""gaz-deu-city-freiburg-im-breisgau.svg"" />",gaz-deu-city-freiburg-im-breisgau.svg
+01_DEU_004,01_DEU,DEU,Deutschland,Germany,München,Munich,,Bayern,Bavaria,48.1351,11.5820,"<img src=""gaz-deu-city-muenchen.svg"" />",gaz-deu-city-muenchen.svg
+01_DEU_005,01_DEU,DEU,Deutschland,Germany,Nürnberg,Nuremberg,true,Bayern,Bavaria,49.4521,11.0767,"<img src=""gaz-deu-city-nuernberg.svg"" />",gaz-deu-city-nuernberg.svg
+01_DEU_006,01_DEU,DEU,Deutschland,Germany,Berlin,Berlin,,Berlin,Berlin,52.5200,13.4050,"<img src=""gaz-deu-city-berlin.svg"" />",gaz-deu-city-berlin.svg
+01_DEU_007,01_DEU,DEU,Deutschland,Germany,Potsdam,Potsdam,,Brandenburg,Brandenburg,52.3906,13.0645,"<img src=""gaz-deu-city-potsdam.svg"" />",gaz-deu-city-potsdam.svg
+01_DEU_008,01_DEU,DEU,Deutschland,Germany,Bremen,Bremen,,Bremen,Bremen,53.0793,8.8017,"<img src=""gaz-deu-city-bremen.svg"" />",gaz-deu-city-bremen.svg
+01_DEU_009,01_DEU,DEU,Deutschland,Germany,Hamburg,Hamburg,,Hamburg,Hamburg,53.5511,9.9937,"<img src=""gaz-deu-city-hamburg.svg"" />",gaz-deu-city-hamburg.svg
+01_DEU_010,01_DEU,DEU,Deutschland,Germany,Wiesbaden,Wiesbaden,,Hessen,Hesse,50.0782,8.2398,"<img src=""gaz-deu-city-wiesbaden.svg"" />",gaz-deu-city-wiesbaden.svg
+01_DEU_011,01_DEU,DEU,Deutschland,Germany,Frankfurt am Main,Frankfurt am Main,true,Hessen,Hesse,50.1109,8.6821,"<img src=""gaz-deu-city-frankfurt-am-main.svg"" />",gaz-deu-city-frankfurt-am-main.svg
+01_DEU_012,01_DEU,DEU,Deutschland,Germany,Schwerin,Schwerin,,Mecklenburg-Vorpommern,Mecklenburg-Western Pomerania,53.6355,11.4012,"<img src=""gaz-deu-city-schwerin.svg"" />",gaz-deu-city-schwerin.svg
+01_DEU_013,01_DEU,DEU,Deutschland,Germany,Hannover,Hanover,,Niedersachsen,Lower Saxony,52.3759,9.7320,"<img src=""gaz-deu-city-hannover.svg"" />",gaz-deu-city-hannover.svg
+01_DEU_014,01_DEU,DEU,Deutschland,Germany,Düsseldorf,Düsseldorf,,Nordrhein-Westfalen,North Rhine-Westphalia,51.2277,6.7735,"<img src=""gaz-deu-city-duesseldorf.svg"" />",gaz-deu-city-duesseldorf.svg
+01_DEU_015,01_DEU,DEU,Deutschland,Germany,Köln,Cologne,true,Nordrhein-Westfalen,North Rhine-Westphalia,50.9375,6.9603,"<img src=""gaz-deu-city-koeln.svg"" />",gaz-deu-city-koeln.svg
+01_DEU_016,01_DEU,DEU,Deutschland,Germany,Dortmund,Dortmund,true,Nordrhein-Westfalen,North Rhine-Westphalia,51.5136,7.4653,"<img src=""gaz-deu-city-dortmund.svg"" />",gaz-deu-city-dortmund.svg
+01_DEU_017,01_DEU,DEU,Deutschland,Germany,Essen,Essen,true,Nordrhein-Westfalen,North Rhine-Westphalia,51.4556,7.0116,"<img src=""gaz-deu-city-essen.svg"" />",gaz-deu-city-essen.svg
+01_DEU_018,01_DEU,DEU,Deutschland,Germany,Mainz,Mainz,,Rheinland-Pfalz,Rhineland-Palatinate,49.9929,8.2473,"<img src=""gaz-deu-city-mainz.svg"" />",gaz-deu-city-mainz.svg
+01_DEU_019,01_DEU,DEU,Deutschland,Germany,Saarbrücken,Saarbrücken,,Saarland,Saarland,49.2402,6.9969,"<img src=""gaz-deu-city-saarbruecken.svg"" />",gaz-deu-city-saarbruecken.svg
+01_DEU_020,01_DEU,DEU,Deutschland,Germany,Dresden,Dresden,,Sachsen,Saxony,51.0504,13.7373,"<img src=""gaz-deu-city-dresden.svg"" />",gaz-deu-city-dresden.svg
+01_DEU_021,01_DEU,DEU,Deutschland,Germany,Leipzig,Leipzig,true,Sachsen,Saxony,51.3397,12.3731,"<img src=""gaz-deu-city-leipzig.svg"" />",gaz-deu-city-leipzig.svg
+01_DEU_022,01_DEU,DEU,Deutschland,Germany,Magdeburg,Magdeburg,,Sachsen-Anhalt,Saxony-Anhalt,52.1205,11.6276,"<img src=""gaz-deu-city-magdeburg.svg"" />",gaz-deu-city-magdeburg.svg
+01_DEU_023,01_DEU,DEU,Deutschland,Germany,Kiel,Kiel,,Schleswig-Holstein,Schleswig-Holstein,54.3233,10.1228,"<img src=""gaz-deu-city-kiel.svg"" />",gaz-deu-city-kiel.svg
+01_DEU_024,01_DEU,DEU,Deutschland,Germany,Erfurt,Erfurt,,Thüringen,Thuringia,50.9848,11.0299,"<img src=""gaz-deu-city-erfurt.svg"" />",gaz-deu-city-erfurt.svg
