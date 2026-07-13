@@ -3,9 +3,14 @@
   "country_english": "France",
   "country_code": "FRA",
   "country_order": 2,
+  "subdivision_source": "regions.csv",
+  "subdivision_parent_source": "regions-old.csv",
+  "subdivision_children_source": "departments.csv",
   "subdivision_output": "subdivisions--regions.csv",
   "subdivision_parent_output": "subdivisions-with-parent--regions-old.csv",
+  "subdivision_children_output": "subdivisions-with-parent--departments.csv",
   "map_template": "maps/regions-template-source.svg",
+  "map_neutral_source": "regions.csv",
   "map_source": "https://commons.wikimedia.org/wiki/File:France_r%C3%A9gionale.svg",
   "highlight_color": "#C11E1E",
   "neutral_color": "#FEFEE9",
@@ -15,9 +20,14 @@
   "highlighted_marker_stroke_width": 4,
   "context_marker_radius": 12,
   "context_marker_stroke_width": 3,
-  "map_omitted_cities": ["Ajaccio"],
-  "subdivision_type_english_overrides": {
-    "Region (1982–2015)": "Previous Region"
+  "subdivision_type_english_omissions": [
+    "Region",
+    "Department",
+    "Region (1982–2015)",
+    "Current region"
+  ],
+  "parent_subdivision_type_native_overrides": {
+    "Région actuelle": "Région"
   },
   "projection": {
     "longitude_min": -5.0,
@@ -31,6 +41,13 @@
   },
   "map_target_companions": {
     "69": ["g6422"]
+  },
+  "children_map_visible_layers": ["Encart Paris-Petite-Couronne"],
+  "children_map_target_companions": {
+    "75": ["075 Paris"],
+    "92": ["092 Hauts-de-Seine"],
+    "93": ["093 Seine-Saint-Denis"],
+    "94": ["094 Val-de-Marne"]
   },
   "map_omitted_target_ids": ["971", "972", "973", "974", "976"],
   "map_hidden_layers": [

@@ -136,6 +136,26 @@ def not_capital_value(city: dict[str, str]) -> str:
     return "true" if city["is_capital"].lower() != "y" else ""
 
 
+def type_english_value(value: str, config: dict) -> str:
+    value = config.get("subdivision_type_english_overrides", {}).get(
+        value, value
+    )
+    return "" if value in config.get("subdivision_type_english_omissions", []) else value
+
+
+def subdivision_type_english_value(subdivision: dict[str, str], config: dict) -> str:
+    return type_english_value(subdivision["subdivision_type_english"], config)
+
+
+def parent_subdivision_type_native_value(
+    subdivision: dict[str, str], config: dict
+) -> str:
+    value = subdivision["parent_subdivision_type_native"]
+    return config.get("parent_subdivision_type_native_overrides", {}).get(
+        value, value
+    )
+
+
 def project_city(latitude: float, longitude: float, projection: dict[str, float]) -> tuple[float, float]:
     lon_fraction = ((longitude - projection["longitude_min"]) /
                     (projection["longitude_max"] - projection["longitude_min"]))
@@ -322,11 +342,8 @@ def subdivision_output_row(
             subdivision["subdivision_native"], subdivision["subdivision_english"]
         ),
         "subdivision_type_native": subdivision["subdivision_type_native"],
-        "subdivision_type_english": config.get(
-            "subdivision_type_english_overrides", {}
-        ).get(
-            subdivision["subdivision_type_english"],
-            subdivision["subdivision_type_english"],
+        "subdivision_type_english": subdivision_type_english_value(
+            subdivision, config
         ),
         "capital_native": subdivision["capital_native"],
         "capital_english": english_if_different(
@@ -341,8 +358,12 @@ def subdivision_output_row(
                 subdivision["parent_subdivision_native"],
                 subdivision["parent_subdivision_english"],
             ),
-            "parent_subdivision_type_native": subdivision["parent_subdivision_type_native"],
-            "parent_subdivision_type_english": subdivision["parent_subdivision_type_english"],
+            "parent_subdivision_type_native": parent_subdivision_type_native_value(
+                subdivision, config
+            ),
+            "parent_subdivision_type_english": type_english_value(
+                subdivision["parent_subdivision_type_english"], config
+            ),
             "parent_subdivision_code": subdivision["parent_subdivision_code"],
         })
     output_row.update({
@@ -365,9 +386,12 @@ def generate_template_subdivision_set(
 ) -> list[dict[str, str]]:
     subdivisions = read_csv(source_path)
     omitted_target_ids = set(config.get("map_omitted_target_ids", []))
+    neutral_subdivisions = read_csv(
+        source_path.parent / config.get("map_neutral_source", source_path.name)
+    )
     all_target_ids = {
         target_id
-        for subdivision in subdivisions
+        for subdivision in neutral_subdivisions
         for target_id in subdivision["map_target_ids"].split(";")
         if target_id not in omitted_target_ids
     }
@@ -472,11 +496,8 @@ def generate_subdivision_set(
                 subdivision["subdivision_english"],
             ),
             "subdivision_type_native": subdivision["subdivision_type_native"],
-            "subdivision_type_english": config.get(
-                "subdivision_type_english_overrides", {}
-            ).get(
-                subdivision["subdivision_type_english"],
-                subdivision["subdivision_type_english"],
+            "subdivision_type_english": subdivision_type_english_value(
+                subdivision, config
             ),
             "capital_native": subdivision["capital_native"],
             "capital_english": english_if_different(
@@ -492,8 +513,12 @@ def generate_subdivision_set(
                     subdivision["parent_subdivision_native"],
                     subdivision["parent_subdivision_english"],
                 ),
-                "parent_subdivision_type_native": subdivision["parent_subdivision_type_native"],
-                "parent_subdivision_type_english": subdivision["parent_subdivision_type_english"],
+                "parent_subdivision_type_native": parent_subdivision_type_native_value(
+                    subdivision, config
+                ),
+                "parent_subdivision_type_english": type_english_value(
+                    subdivision["parent_subdivision_type_english"], config
+                ),
                 "parent_subdivision_code": subdivision["parent_subdivision_code"],
             })
         output_row.update({
@@ -516,11 +541,20 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
     media_dir.mkdir(parents=True, exist_ok=True)
     clear_country_media(media_dir, country_code)
 
-    parent_source = data_dir / "subdivisions_with_parent.csv"
+    subdivision_source = data_dir / config.get(
+        "subdivision_source", "subdivisions.csv"
+    )
+    parent_source = data_dir / config.get(
+        "subdivision_parent_source", "subdivisions_with_parent.csv"
+    )
+    children_source = data_dir / config.get(
+        "subdivision_children_source", "subdivisions_children.csv"
+    )
     parent_rows: list[dict[str, str]] = []
+    children_rows: list[dict[str, str]] = []
     if "map_template" in config:
         subdivision_rows = generate_template_subdivision_set(
-            data_dir / "subdivisions.csv",
+            subdivision_source,
             country_output_dir / config["subdivision_output"],
             media_dir,
             config,
@@ -529,7 +563,7 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
             media_kind="subdivision",
         )
         cached_by_code: dict[str, Path] = {}
-        current_subdivisions = read_csv(data_dir / "subdivisions.csv")
+        current_subdivisions = read_csv(subdivision_source)
         current_target_ids = {
             target_id
             for subdivision in current_subdivisions
@@ -555,9 +589,30 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
                 media_kind="subdivision-old",
                 with_parent=True,
             )
+        if children_source.exists():
+            children_config = dict(config)
+            children_config["map_hidden_layers"] = [
+                label
+                for label in config["map_hidden_layers"]
+                if label not in set(config.get("children_map_visible_layers", []))
+            ]
+            children_config["map_target_companions"] = {
+                **config.get("map_target_companions", {}),
+                **config.get("children_map_target_companions", {}),
+            }
+            children_rows = generate_template_subdivision_set(
+                children_source,
+                country_output_dir / config["subdivision_children_output"],
+                media_dir,
+                children_config,
+                family_order=4,
+                family_code="SUB2",
+                media_kind="subdivision-department",
+                with_parent=True,
+            )
     else:
         subdivision_rows, cached_by_code = generate_subdivision_set(
-            data_dir / "subdivisions.csv",
+            subdivision_source,
             country_output_dir / config["subdivision_output"],
             cache_dir,
             media_dir,
@@ -578,6 +633,19 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
                 family_order=3,
                 family_code="HIST",
                 media_kind="subdivision-old",
+                with_parent=True,
+            )
+        if children_source.exists():
+            children_rows, _ = generate_subdivision_set(
+                children_source,
+                country_output_dir / config["subdivision_children_output"],
+                cache_dir,
+                media_dir,
+                config,
+                seed_dir,
+                family_order=4,
+                family_code="SUB2",
+                media_kind="subdivision-department",
                 with_parent=True,
             )
 
@@ -623,7 +691,7 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
                 "map_filename": filename,
             })
         write_csv(country_output_dir / "cities.csv", city_rows)
-    return subdivision_rows + parent_rows, city_rows
+    return subdivision_rows + parent_rows + children_rows, city_rows
 
 
 def country_directories(selected: list[str] | None) -> list[Path]:

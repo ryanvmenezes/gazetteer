@@ -77,6 +77,12 @@ class GenerateTests(unittest.TestCase):
             generate.subdivision_filename("FRA", "FR-42", "subdivision-old"),
             "gaz-fra-subdivision-old-42.svg",
         )
+        self.assertEqual(
+            generate.subdivision_filename(
+                "FRA", "FR-26", "subdivision-department"
+            ),
+            "gaz-fra-subdivision-department-26.svg",
+        )
         self.assertEqual(generate.city_filename("DEU", "Köln"), "gaz-deu-city-koeln.svg")
 
     def test_sort_keys_preserve_country_and_row_order(self):
@@ -93,6 +99,17 @@ class GenerateTests(unittest.TestCase):
     def test_english_output_is_blank_when_it_matches_native(self):
         self.assertEqual(generate.english_if_different("Berlin", "Berlin"), "")
         self.assertEqual(generate.english_if_different("Bayern", "Bavaria"), "Bavaria")
+
+    def test_redundant_subdivision_type_english_can_be_omitted(self):
+        config = {
+            "subdivision_type_english_omissions": [
+                "Region", "Department", "Region (1982–2015)", "Current region"
+            ],
+        }
+        self.assertEqual(generate.type_english_value("Region", config), "")
+        self.assertEqual(generate.type_english_value("Department", config), "")
+        self.assertEqual(generate.type_english_value("Region (1982–2015)", config), "")
+        self.assertEqual(generate.type_english_value("Current region", config), "")
 
     def test_not_capital_is_blank_for_capitals_and_true_for_others(self):
         self.assertEqual(generate.not_capital_value({"is_capital": "y"}), "")

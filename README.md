@@ -20,6 +20,8 @@ topic. Germany therefore emits `subdivisions--states.csv`. France emits
 `subdivisions--regions.csv` and
 `subdivisions-with-parent--regions-old.csv`; the latter adds reusable
 `parent_subdivision_*` fields for mapping each former region to its current
+region. France also emits `subdivisions-with-parent--departments.csv`, using
+the same parent schema to map each second-level département to its current
 region.
 
 Generated CSVs begin with Anki-native `#separator` and `#columns` metadata.
@@ -59,9 +61,6 @@ region CSV, but their `map_image` and `map_filename` fields are blank and no
 corresponding SVGs are generated. The historical-with-parent file omits those
 unchanged regions and Corsica because they have no transition to quiz. The
 source URL remains for attribution.
-Ajaccio remains in the city CSV as Corsica's capital, but its map fields are
-blank and it is omitted from city-map context dots because the displaced
-Corsica rendering does not provide useful locator context.
 
 To copy all generated media into Anki:
 
@@ -107,9 +106,10 @@ of their source CSV regardless of alphabetical order.
 
 ## Adding a country
 
-Create `data/<ISO3>/subdivisions.csv` and `map.json` following `data/DEU`, plus
-`cities.csv` when the country has a city deck. Give the country a unique
-`country_order`. In source CSVs, include
+Give source CSVs literate, country-specific names and declare their schema roles
+in `map.json`. Germany uses `states.csv`; France uses `regions.csv`,
+`regions-old.csv`, and `departments.csv`. Add `cities.csv` when the country has
+a city deck, and give the country a unique `country_order`. In source CSVs, include
 English labels even when they match the native label; generated CSVs leave
 duplicate English city, subdivision, and capital fields blank. Subdivision source rows
 also include native and English type labels, such as `Land` / `State` or
@@ -117,13 +117,19 @@ also include native and English type labels, such as `Land` / `State` or
 should be needed for countries whose Wikimedia locator maps use the same
 pattern.
 
-## Future work
+## French départements
 
-France's SVG template already contains individually coded département shapes.
-A later second-level deck could use a file such as
-`subdivisions-with-parent--departments.csv`, current regions as parents, and a
-separate key family such as `FRA_04_SUB2_001`. This is intentionally deferred;
-the current French deck quizzes regions and cities only.
+The French second-level deck contains the 101 départements listed in INSEE's
+2026 Code officiel géographique, in official code order. It uses the
+`FRA_04_SUB2_###` key family and the reusable `parent_subdivision_*` fields for
+the current region. The 96 metropolitan rows generate individual department
+maps from the coded template shapes. The five overseas rows have blank map
+fields under the same no-insets policy as the region deck.
+
+The department maps alone retain the template's Paris–Petite Couronne inset so
+Paris, Hauts-de-Seine, Seine-Saint-Denis, and Val-de-Marne remain legible. The
+department and chef-lieu data comes from INSEE's Code officiel géographique at
+<https://www.insee.fr/fr/information/8740222>.
 
 ## GitHub workflow
 

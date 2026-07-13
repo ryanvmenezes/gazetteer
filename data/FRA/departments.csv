@@ -1,0 +1,102 @@
+subdivision_native,subdivision_english,subdivision_type_native,subdivision_type_english,capital_native,capital_english,subdivision_code,parent_subdivision_native,parent_subdivision_english,parent_subdivision_type_native,parent_subdivision_type_english,parent_subdivision_code,map_target_ids
+Ain,Ain,Département,Department,Bourg-en-Bresse,Bourg-en-Bresse,FR-01,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,FR-ARA,01
+Aisne,Aisne,Département,Department,Laon,Laon,FR-02,Hauts-de-France,Hauts-de-France,Région,Region,FR-HDF,02
+Allier,Allier,Département,Department,Moulins,Moulins,FR-03,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,FR-ARA,03
+Alpes-de-Haute-Provence,Alpes-de-Haute-Provence,Département,Department,Digne-les-Bains,Digne-les-Bains,FR-04,Provence-Alpes-Côte d'Azur,Provence-Alpes-Côte d'Azur,Région,Region,FR-PAC,04
+Hautes-Alpes,Hautes-Alpes,Département,Department,Gap,Gap,FR-05,Provence-Alpes-Côte d'Azur,Provence-Alpes-Côte d'Azur,Région,Region,FR-PAC,05
+Alpes-Maritimes,Alpes-Maritimes,Département,Department,Nice,Nice,FR-06,Provence-Alpes-Côte d'Azur,Provence-Alpes-Côte d'Azur,Région,Region,FR-PAC,06
+Ardèche,Ardèche,Département,Department,Privas,Privas,FR-07,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,FR-ARA,07
+Ardennes,Ardennes,Département,Department,Charleville-Mézières,Charleville-Mézières,FR-08,Grand Est,Grand Est,Région,Region,FR-GES,08
+Ariège,Ariège,Département,Department,Foix,Foix,FR-09,Occitanie,Occitania,Région,Region,FR-OCC,09
+Aube,Aube,Département,Department,Troyes,Troyes,FR-10,Grand Est,Grand Est,Région,Region,FR-GES,10
+Aude,Aude,Département,Department,Carcassonne,Carcassonne,FR-11,Occitanie,Occitania,Région,Region,FR-OCC,11
+Aveyron,Aveyron,Département,Department,Rodez,Rodez,FR-12,Occitanie,Occitania,Région,Region,FR-OCC,12
+Bouches-du-Rhône,Bouches-du-Rhône,Département,Department,Marseille,Marseille,FR-13,Provence-Alpes-Côte d'Azur,Provence-Alpes-Côte d'Azur,Région,Region,FR-PAC,13
+Calvados,Calvados,Département,Department,Caen,Caen,FR-14,Normandie,Normandy,Région,Region,FR-NOR,14
+Cantal,Cantal,Département,Department,Aurillac,Aurillac,FR-15,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,FR-ARA,15
+Charente,Charente,Département,Department,Angoulême,Angoulême,FR-16,Nouvelle-Aquitaine,New Aquitaine,Région,Region,FR-NAQ,16
+Charente-Maritime,Charente-Maritime,Département,Department,La Rochelle,La Rochelle,FR-17,Nouvelle-Aquitaine,New Aquitaine,Région,Region,FR-NAQ,17
+Cher,Cher,Département,Department,Bourges,Bourges,FR-18,Centre-Val de Loire,Centre-Loire Valley,Région,Region,FR-CVL,18
+Corrèze,Corrèze,Département,Department,Tulle,Tulle,FR-19,Nouvelle-Aquitaine,New Aquitaine,Région,Region,FR-NAQ,19
+Côte-d'Or,Côte-d'Or,Département,Department,Dijon,Dijon,FR-21,Bourgogne-Franche-Comté,Burgundy-Free County,Région,Region,FR-BFC,21
+Côtes-d'Armor,Côtes-d'Armor,Département,Department,Saint-Brieuc,Saint-Brieuc,FR-22,Bretagne,Brittany,Région,Region,FR-BRE,22
+Creuse,Creuse,Département,Department,Guéret,Guéret,FR-23,Nouvelle-Aquitaine,New Aquitaine,Région,Region,FR-NAQ,23
+Dordogne,Dordogne,Département,Department,Périgueux,Périgueux,FR-24,Nouvelle-Aquitaine,New Aquitaine,Région,Region,FR-NAQ,24
+Doubs,Doubs,Département,Department,Besançon,Besançon,FR-25,Bourgogne-Franche-Comté,Burgundy-Free County,Région,Region,FR-BFC,25
+Drôme,Drôme,Département,Department,Valence,Valence,FR-26,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,FR-ARA,26
+Eure,Eure,Département,Department,Évreux,Évreux,FR-27,Normandie,Normandy,Région,Region,FR-NOR,27
+Eure-et-Loir,Eure-et-Loir,Département,Department,Chartres,Chartres,FR-28,Centre-Val de Loire,Centre-Loire Valley,Région,Region,FR-CVL,28
+Finistère,Finistère,Département,Department,Quimper,Quimper,FR-29,Bretagne,Brittany,Région,Region,FR-BRE,29
+Corse-du-Sud,Corse-du-Sud,Département,Department,Ajaccio,Ajaccio,FR-2A,Corse,Corsica,Collectivité,Collectivity,FR-20R,2A
+Haute-Corse,Haute-Corse,Département,Department,Bastia,Bastia,FR-2B,Corse,Corsica,Collectivité,Collectivity,FR-20R,2B
+Gard,Gard,Département,Department,Nîmes,Nîmes,FR-30,Occitanie,Occitania,Région,Region,FR-OCC,30
+Haute-Garonne,Haute-Garonne,Département,Department,Toulouse,Toulouse,FR-31,Occitanie,Occitania,Région,Region,FR-OCC,31
+Gers,Gers,Département,Department,Auch,Auch,FR-32,Occitanie,Occitania,Région,Region,FR-OCC,32
+Gironde,Gironde,Département,Department,Bordeaux,Bordeaux,FR-33,Nouvelle-Aquitaine,New Aquitaine,Région,Region,FR-NAQ,33
+Hérault,Hérault,Département,Department,Montpellier,Montpellier,FR-34,Occitanie,Occitania,Région,Region,FR-OCC,34
+Ille-et-Vilaine,Ille-et-Vilaine,Département,Department,Rennes,Rennes,FR-35,Bretagne,Brittany,Région,Region,FR-BRE,35
+Indre,Indre,Département,Department,Châteauroux,Châteauroux,FR-36,Centre-Val de Loire,Centre-Loire Valley,Région,Region,FR-CVL,36
+Indre-et-Loire,Indre-et-Loire,Département,Department,Tours,Tours,FR-37,Centre-Val de Loire,Centre-Loire Valley,Région,Region,FR-CVL,37
+Isère,Isère,Département,Department,Grenoble,Grenoble,FR-38,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,FR-ARA,38
+Jura,Jura,Département,Department,Lons-le-Saunier,Lons-le-Saunier,FR-39,Bourgogne-Franche-Comté,Burgundy-Free County,Région,Region,FR-BFC,39
+Landes,Landes,Département,Department,Mont-de-Marsan,Mont-de-Marsan,FR-40,Nouvelle-Aquitaine,New Aquitaine,Région,Region,FR-NAQ,40
+Loir-et-Cher,Loir-et-Cher,Département,Department,Blois,Blois,FR-41,Centre-Val de Loire,Centre-Loire Valley,Région,Region,FR-CVL,41
+Loire,Loire,Département,Department,Saint-Étienne,Saint-Étienne,FR-42,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,FR-ARA,42
+Haute-Loire,Haute-Loire,Département,Department,Le Puy-en-Velay,Le Puy-en-Velay,FR-43,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,FR-ARA,43
+Loire-Atlantique,Loire-Atlantique,Département,Department,Nantes,Nantes,FR-44,Pays de la Loire,Pays de la Loire,Région,Region,FR-PDL,44
+Loiret,Loiret,Département,Department,Orléans,Orléans,FR-45,Centre-Val de Loire,Centre-Loire Valley,Région,Region,FR-CVL,45
+Lot,Lot,Département,Department,Cahors,Cahors,FR-46,Occitanie,Occitania,Région,Region,FR-OCC,46
+Lot-et-Garonne,Lot-et-Garonne,Département,Department,Agen,Agen,FR-47,Nouvelle-Aquitaine,New Aquitaine,Région,Region,FR-NAQ,47
+Lozère,Lozère,Département,Department,Mende,Mende,FR-48,Occitanie,Occitania,Région,Region,FR-OCC,48
+Maine-et-Loire,Maine-et-Loire,Département,Department,Angers,Angers,FR-49,Pays de la Loire,Pays de la Loire,Région,Region,FR-PDL,49
+Manche,Manche,Département,Department,Saint-Lô,Saint-Lô,FR-50,Normandie,Normandy,Région,Region,FR-NOR,50
+Marne,Marne,Département,Department,Châlons-en-Champagne,Châlons-en-Champagne,FR-51,Grand Est,Grand Est,Région,Region,FR-GES,51
+Haute-Marne,Haute-Marne,Département,Department,Chaumont,Chaumont,FR-52,Grand Est,Grand Est,Région,Region,FR-GES,52
+Mayenne,Mayenne,Département,Department,Laval,Laval,FR-53,Pays de la Loire,Pays de la Loire,Région,Region,FR-PDL,53
+Meurthe-et-Moselle,Meurthe-et-Moselle,Département,Department,Nancy,Nancy,FR-54,Grand Est,Grand Est,Région,Region,FR-GES,54
+Meuse,Meuse,Département,Department,Bar-le-Duc,Bar-le-Duc,FR-55,Grand Est,Grand Est,Région,Region,FR-GES,55
+Morbihan,Morbihan,Département,Department,Vannes,Vannes,FR-56,Bretagne,Brittany,Région,Region,FR-BRE,56
+Moselle,Moselle,Département,Department,Metz,Metz,FR-57,Grand Est,Grand Est,Région,Region,FR-GES,57
+Nièvre,Nièvre,Département,Department,Nevers,Nevers,FR-58,Bourgogne-Franche-Comté,Burgundy-Free County,Région,Region,FR-BFC,58
+Nord,Nord,Département,Department,Lille,Lille,FR-59,Hauts-de-France,Hauts-de-France,Région,Region,FR-HDF,59
+Oise,Oise,Département,Department,Beauvais,Beauvais,FR-60,Hauts-de-France,Hauts-de-France,Région,Region,FR-HDF,60
+Orne,Orne,Département,Department,Alençon,Alençon,FR-61,Normandie,Normandy,Région,Region,FR-NOR,61
+Pas-de-Calais,Pas-de-Calais,Département,Department,Arras,Arras,FR-62,Hauts-de-France,Hauts-de-France,Région,Region,FR-HDF,62
+Puy-de-Dôme,Puy-de-Dôme,Département,Department,Clermont-Ferrand,Clermont-Ferrand,FR-63,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,FR-ARA,63
+Pyrénées-Atlantiques,Pyrénées-Atlantiques,Département,Department,Pau,Pau,FR-64,Nouvelle-Aquitaine,New Aquitaine,Région,Region,FR-NAQ,64
+Hautes-Pyrénées,Hautes-Pyrénées,Département,Department,Tarbes,Tarbes,FR-65,Occitanie,Occitania,Région,Region,FR-OCC,65
+Pyrénées-Orientales,Pyrénées-Orientales,Département,Department,Perpignan,Perpignan,FR-66,Occitanie,Occitania,Région,Region,FR-OCC,66
+Bas-Rhin,Bas-Rhin,Département,Department,Strasbourg,Strasbourg,FR-67,Grand Est,Grand Est,Région,Region,FR-GES,67
+Haut-Rhin,Haut-Rhin,Département,Department,Colmar,Colmar,FR-68,Grand Est,Grand Est,Région,Region,FR-GES,68
+Rhône,Rhône,Département,Department,Lyon,Lyon,FR-69,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,FR-ARA,69
+Haute-Saône,Haute-Saône,Département,Department,Vesoul,Vesoul,FR-70,Bourgogne-Franche-Comté,Burgundy-Free County,Région,Region,FR-BFC,70
+Saône-et-Loire,Saône-et-Loire,Département,Department,Mâcon,Mâcon,FR-71,Bourgogne-Franche-Comté,Burgundy-Free County,Région,Region,FR-BFC,71
+Sarthe,Sarthe,Département,Department,Le Mans,Le Mans,FR-72,Pays de la Loire,Pays de la Loire,Région,Region,FR-PDL,72
+Savoie,Savoie,Département,Department,Chambéry,Chambéry,FR-73,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,FR-ARA,73
+Haute-Savoie,Haute-Savoie,Département,Department,Annecy,Annecy,FR-74,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,Region,FR-ARA,74
+Paris,Paris,Département,Department,Paris,Paris,FR-75,Île-de-France,Île-de-France,Région,Region,FR-IDF,75
+Seine-Maritime,Seine-Maritime,Département,Department,Rouen,Rouen,FR-76,Normandie,Normandy,Région,Region,FR-NOR,76
+Seine-et-Marne,Seine-et-Marne,Département,Department,Melun,Melun,FR-77,Île-de-France,Île-de-France,Région,Region,FR-IDF,77
+Yvelines,Yvelines,Département,Department,Versailles,Versailles,FR-78,Île-de-France,Île-de-France,Région,Region,FR-IDF,78
+Deux-Sèvres,Deux-Sèvres,Département,Department,Niort,Niort,FR-79,Nouvelle-Aquitaine,New Aquitaine,Région,Region,FR-NAQ,79
+Somme,Somme,Département,Department,Amiens,Amiens,FR-80,Hauts-de-France,Hauts-de-France,Région,Region,FR-HDF,80
+Tarn,Tarn,Département,Department,Albi,Albi,FR-81,Occitanie,Occitania,Région,Region,FR-OCC,81
+Tarn-et-Garonne,Tarn-et-Garonne,Département,Department,Montauban,Montauban,FR-82,Occitanie,Occitania,Région,Region,FR-OCC,82
+Var,Var,Département,Department,Toulon,Toulon,FR-83,Provence-Alpes-Côte d'Azur,Provence-Alpes-Côte d'Azur,Région,Region,FR-PAC,83
+Vaucluse,Vaucluse,Département,Department,Avignon,Avignon,FR-84,Provence-Alpes-Côte d'Azur,Provence-Alpes-Côte d'Azur,Région,Region,FR-PAC,84
+Vendée,Vendée,Département,Department,La Roche-sur-Yon,La Roche-sur-Yon,FR-85,Pays de la Loire,Pays de la Loire,Région,Region,FR-PDL,85
+Vienne,Vienne,Département,Department,Poitiers,Poitiers,FR-86,Nouvelle-Aquitaine,New Aquitaine,Région,Region,FR-NAQ,86
+Haute-Vienne,Haute-Vienne,Département,Department,Limoges,Limoges,FR-87,Nouvelle-Aquitaine,New Aquitaine,Région,Region,FR-NAQ,87
+Vosges,Vosges,Département,Department,Épinal,Épinal,FR-88,Grand Est,Grand Est,Région,Region,FR-GES,88
+Yonne,Yonne,Département,Department,Auxerre,Auxerre,FR-89,Bourgogne-Franche-Comté,Burgundy-Free County,Région,Region,FR-BFC,89
+Territoire de Belfort,Territoire de Belfort,Département,Department,Belfort,Belfort,FR-90,Bourgogne-Franche-Comté,Burgundy-Free County,Région,Region,FR-BFC,90
+Essonne,Essonne,Département,Department,Évry-Courcouronnes,Évry-Courcouronnes,FR-91,Île-de-France,Île-de-France,Région,Region,FR-IDF,91
+Hauts-de-Seine,Hauts-de-Seine,Département,Department,Nanterre,Nanterre,FR-92,Île-de-France,Île-de-France,Région,Region,FR-IDF,92
+Seine-Saint-Denis,Seine-Saint-Denis,Département,Department,Bobigny,Bobigny,FR-93,Île-de-France,Île-de-France,Région,Region,FR-IDF,93
+Val-de-Marne,Val-de-Marne,Département,Department,Créteil,Créteil,FR-94,Île-de-France,Île-de-France,Région,Region,FR-IDF,94
+Val-d'Oise,Val-d'Oise,Département,Department,Pontoise,Pontoise,FR-95,Île-de-France,Île-de-France,Région,Region,FR-IDF,95
+Guadeloupe,Guadeloupe,Département,Department,Basse-Terre,Basse-Terre,FR-971,Guadeloupe,Guadeloupe,Région et département d'outre-mer,Overseas region and department,FR-GP,971
+Martinique,Martinique,Département,Department,Fort-de-France,Fort-de-France,FR-972,Martinique,Martinique,Collectivité territoriale unique,Single territorial collectivity,FR-MQ,972
+Guyane,French Guiana,Département,Department,Cayenne,Cayenne,FR-973,Guyane,French Guiana,Collectivité territoriale unique,Single territorial collectivity,FR-GF,973
+La Réunion,Réunion,Département,Department,Saint-Denis,Saint-Denis,FR-974,La Réunion,Réunion,Région et département d'outre-mer,Overseas region and department,FR-RE,974
+Mayotte,Mayotte,Département,Department,Mamoudzou,Mamoudzou,FR-976,Mayotte,Mayotte,Département et région d'outre-mer,Overseas department and region,FR-YT,976
