@@ -4,6 +4,10 @@ Gazetteer builds Anki-ready geography datasets and locator maps one country at
 a time. Generated media filenames begin with `gaz-`, making them easy to find
 in Anki's `collection.media` directory.
 
+This project was developed with ChatGPT/Codex, building on
+[previous work](https://github.com/ryanvmenezes/gazetteer-old) by the 
+repository author.
+
 Gazetteer produces a separate set of Anki imports for each country. Every
 country currently has:
 
@@ -70,22 +74,23 @@ scripts/copy_media_to_anki.sh "/path/to/Anki2/Profile/collection.media"
 
 ## Choosing cities
 
-`data/DEU/cities.csv` begins with every state capital plus selected prominent
-non-capitals. The generator emits city cards for every listed city so the deck
-can test where capitals and other notable cities sit within their subdivisions.
+`data/<ISO3>/cities.csv` lists the capitals and selected prominent non-capitals
+included in that country's deck. The generator emits city cards for every
+listed city so the deck can test where capitals and other notable cities sit
+within their subdivisions.
 
 A practical selection rule is:
 
 1. Include every national and first-level subdivision capital.
 2. Add the largest or most culturally important non-capitals.
-3. Add cities that clarify easily confused regions or state boundaries.
+3. Add cities that clarify easily confused regions or subdivision boundaries.
 4. Keep the first deck small, then add cities after the existing set is easy.
 
-Each city has latitude and longitude in the source CSV. The generator projects
-those coordinates onto the same Wikimedia locator-map canvas used by the state
-cards, neutralizes the highlighted state, adds hollow dots for every listed city
-in the country, and highlights the current city as the only filled red dot.
-Country-specific projection calibration lives in `data/DEU/map.json`.
+Each city has latitude and longitude in the source CSV. The generator places
+those coordinates on the country's neutral Wikimedia locator-map canvas, adds
+hollow dots for every listed context city, and highlights the current city as
+the only filled red dot. Country-specific map and projection configuration
+lives in `data/<ISO3>/map.json`.
 
 ## Sort order
 
@@ -117,19 +122,13 @@ also include native and English type labels, such as `Land` / `State` or
 should be needed for countries whose Wikimedia locator maps use the same
 pattern.
 
-## French départements
+## Country data sources
 
-The French second-level deck contains the 101 départements listed in INSEE's
-2026 Code officiel géographique, in official code order. It uses the
-`FRA_04_SUB2_###` key family and the reusable `parent_subdivision_*` fields for
-the current region. The 96 metropolitan rows generate individual department
-maps from the coded template shapes. The five overseas rows have blank map
-fields under the same no-insets policy as the region deck.
+Country-specific source provenance, selection decisions, transformations, and
+licensing notes live alongside the source data:
 
-The department maps alone retain the template's Paris–Petite Couronne inset so
-Paris, Hauts-de-Seine, Seine-Saint-Denis, and Val-de-Marne remain legible. The
-department and chef-lieu data comes from INSEE's Code officiel géographique at
-<https://www.insee.fr/fr/information/8740222>.
+- [Germany source notes](data/DEU/README.md)
+- [France source notes](data/FRA/README.md)
 
 ## GitHub workflow
 
