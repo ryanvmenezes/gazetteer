@@ -34,24 +34,45 @@ creating a note from an ordinary header row.
 
 ## Generate Deck Data
 
+The common commands are available through the `Makefile`:
+
+```bash
+make generate                       # Generate every country
+make generate COUNTRIES=DEU         # Generate one or more ISO3 countries
+make test                           # Run the test suite
+make check                          # Generate everything and run the tests
+make copy-media                     # Copy generated media to the default Anki profile
+make refresh-anki                   # Generate, test, and copy media
+make help                           # Show all available commands
+```
+
+The Anki media destination defaults to the `Ryan` profile on macOS. To use another profile or path:
+
+```bash
+make copy-media ANKI_PROFILE=OtherProfile
+make copy-media ANKI_MEDIA="/path/to/collection.media"
+```
+
+The underlying generator can also be run directly:
+
 ```bash
 python3 scripts/generate.py
 ```
 
 The command generates every country under `data/`. To build selected countries,
 pass their ISO alpha-3 codes, for example `python3 scripts/generate.py DEU`.
-It downloads Wikimedia Commons locator SVGs into `cache/` and writes each
-country's CSVs and Anki media to `outputs/<ISO3>/`. Cache and generated media
-are ignored by Git; generated CSVs are tracked.
+Template-backed countries build directly from tracked SVGs under
+`data/<ISO3>/maps/` and write their CSVs and Anki media to `outputs/<ISO3>/`.
+Generated media is ignored by Git; generated CSVs are tracked.
 
-France uses a single checked-in Wikimedia SVG template whose department shapes
-have stable IDs. The generator makes the department layer visible, removes
-unused label and overlay layers, neutralizes every department, and highlights
-the departments belonging to each current or former region. Thus both French
-map families are rebuilt locally from one source SVG rather than downloading a
-separate locator for every row.
+France uses three checked-in Wikimedia locator maps: a department map, a
+current-region map, and a 1982–2015 region map. Each output family therefore
+shows only its appropriate boundary system. A checked-in fill source derived
+from the exact department locator provides aligned shapes for highlighting; the
+generator places those fills beneath each locator map's original boundary
+layer. It never downloads a separate locator for every row.
 
-The French city deck uses this current-region template as its neutral base. It
+The French city deck uses the current-region locator as its neutral base. It
 contains every metropolitan current regional capital, nine former regional
 capitals, and a small set of additional prominent cities. Overseas cities are
 omitted because their context dots are not useful at the inset-map scale. Both
@@ -133,4 +154,6 @@ licensing notes live alongside the source data:
 ## GitHub workflow
 
 Commit source data, generator changes, and generated CSVs after each country.
-Generated media and cache files stay out of Git because they can be rebuilt.
+Generated media stays out of Git because it can be rebuilt. The generator still
+supports a cache for legacy per-row Commons locator downloads, but the current
+template-backed countries do not create one.

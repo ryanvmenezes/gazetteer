@@ -150,6 +150,10 @@ class GenerateTests(unittest.TestCase):
         self.assertIn('cx="60.00" cy="30.00" r="4.5" fill="#FFFFFF"', rendered)
         self.assertIn('stroke-width="1.25"', rendered)
         self.assertIn('<path fill="#FEFEE9"/>', rendered)
+        self.assertLess(
+            rendered.index('r="11" fill="#C11E1E"'),
+            rendered.index('r="4.5" fill="#FFFFFF"'),
+        )
 
     def test_city_markers_support_namespaced_svg_closing_tag(self):
         config = {
@@ -167,7 +171,7 @@ class GenerateTests(unittest.TestCase):
             source = Path(directory) / "source.svg"
             output = Path(directory) / "output.svg"
             source.write_text("<ns0:svg></ns0:svg>", encoding="utf-8")
-            generate.add_city_markers(source, output, config, [city], city)
+            generate.add_city_markers(source.read_bytes(), output, config, [city], city)
             rendered = output.read_text(encoding="utf-8")
 
         self.assertIn('id="gaz-city-markers"', rendered)
@@ -199,6 +203,86 @@ class GenerateTests(unittest.TestCase):
         self.assertNotIn('id="overlay"', rendered)
         self.assertEqual(rendered.count("fill:#C11E1E"), 2)
         self.assertNotIn("fill-opacity:0.5", rendered)
+
+    def test_template_maps_support_generic_named_targets(self):
+        svg = '''<svg xmlns="http://www.w3.org/2000/svg">
+          <g id="DE-RP"><path style="fill:#abcdef;stroke:#646464"/></g>
+        </svg>'''
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.svg"
+            output = root / "output.svg"
+            source.write_text(svg, encoding="utf-8")
+            template = generate.prepare_svg_template(
+                source, {"DE-RP"}, set(), "#FEFEE9", {}
+            )
+            generate.highlight_svg_template(
+                template, output, ["DE-RP"], "#C11E1E", {}
+            )
+            rendered = output.read_text(encoding="utf-8")
+
+        self.assertIn("fill:#C11E1E", rendered)
+
+    def test_template_map_inset_is_limited_to_configured_targets(self):
+        svg = '''<svg xmlns="http://www.w3.org/2000/svg">
+          <g id="75"><path style="fill:#abcdef"/></g>
+          <g id="76"><path style="fill:#abcdef"/></g>
+        </svg>'''
+        inset = {
+            "target_ids": ["75"],
+            "source_x": 10,
+            "source_y": 20,
+            "radius": 5,
+            "scale": 4,
+        }
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.svg"
+            inset_output = root / "inset.svg"
+            plain_output = root / "plain.svg"
+            source.write_text(svg, encoding="utf-8")
+            template = generate.prepare_svg_template(
+                source, {"75", "76"}, set(), "#FEFEE9", {}
+            )
+            generate.highlight_svg_template(
+                template, inset_output, ["75"], "#C11E1E", {}, inset
+            )
+            generate.highlight_svg_template(
+                template, plain_output, ["76"], "#C11E1E", {}, inset
+            )
+            inset_rendered = inset_output.read_text()
+            plain_rendered = plain_output.read_text()
+
+        self.assertIn('id="gaz-map-inset"', inset_rendered)
+        self.assertNotIn('id="gaz-map-inset"', plain_rendered)
+
+    def test_subdivision_output_can_omit_map_source(self):
+        subdivision = {
+            "subdivision_native": "Bayern",
+            "subdivision_english": "Bavaria",
+            "subdivision_type_native": "Freistaat",
+            "subdivision_type_english": "Free State",
+            "capital_native": "München",
+            "capital_english": "Munich",
+            "subdivision_code": "DE-BY",
+        }
+        config = {
+            "country_code": "DEU",
+            "country_native": "Deutschland",
+            "country_english": "Germany",
+            "include_map_source": False,
+        }
+
+        row = generate.subdivision_output_row(
+            subdivision,
+            config,
+            "DEU_01_SUB1_002",
+            "gaz-deu-subdivision-by.svg",
+            "https://example.com/source.svg",
+            False,
+        )
+
+        self.assertNotIn("map_source", row)
 
 
 if __name__ == "__main__":

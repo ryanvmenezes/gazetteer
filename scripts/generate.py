@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import csv
 import json
 import re
@@ -189,13 +190,17 @@ def city_marker(city: dict[str, str], config: dict, highlighted: bool) -> str:
 
 
 def add_city_markers(
-    source: Path,
+    source: Path | bytes,
     destination: Path,
     config: dict,
     cities: list[dict[str, str]],
     highlighted_city: dict[str, str],
 ) -> None:
-    svg = source.read_text(encoding="utf-8")
+    svg = (
+        source.decode("utf-8")
+        if isinstance(source, bytes)
+        else source.read_text(encoding="utf-8")
+    )
     svg = svg.replace(config["highlight_color"], config["neutral_color"])
     other_markers = [
         city_marker(city, config, highlighted=False)
@@ -205,7 +210,7 @@ def add_city_markers(
     highlighted_marker = city_marker(highlighted_city, config, highlighted=True)
     marker = (
         f'\n<g id="gaz-city-markers" aria-label="City locations">'
-        f'{"".join(other_markers)}{highlighted_marker}</g>\n'
+        f'{highlighted_marker}{"".join(other_markers)}</g>\n'
     )
     svg, replacements = re.subn(
         r"</(?:[A-Za-z_][A-Za-z0-9_.-]*:)?svg>\s*$",
@@ -213,7 +218,7 @@ def add_city_markers(
         svg,
     )
     if replacements != 1:
-        raise ValueError(f"Expected one closing SVG tag in {source}; found {replacements}")
+        raise ValueError(f"Expected one closing SVG tag; found {replacements}")
     destination.write_text(svg, encoding="utf-8")
 
 
@@ -265,6 +270,12 @@ def find_svg_target(
         if element_id == target_id or element_id.startswith(f"{target_id} ")
         if is_in_department_layer(element)
     ]
+    if not matches:
+        matches = [
+            element
+            for element_id, element in id_index.items()
+            if element_id == target_id
+        ]
     if len(matches) != 1:
         raise ValueError(
             f"SVG target {target_id} matched {len(matches)} elements; expected exactly one"
@@ -278,9 +289,62 @@ def prepare_svg_template(
     hidden_layer_labels: set[str],
     neutral_color: str,
     target_companions: dict[str, list[str]],
+    fill_overlay_path: Path | None = None,
+    fill_overlay_transform: str | None = None,
 ) -> bytes:
     tree = ET.parse(template_path)
     root = tree.getroot()
+    if fill_overlay_path:
+        overlay_root = ET.parse(fill_overlay_path).getroot()
+        overlay_id_index = {
+            element.get("id"): element
+            for element in overlay_root.iter()
+            if element.get("id")
+        }
+        overlay_parent_index = {
+            child: parent for parent in overlay_root.iter() for child in parent
+        }
+        overlay = ET.Element(
+            "{http://www.w3.org/2000/svg}g",
+            {
+                "id": "gaz-fill-targets",
+                "{http://www.inkscape.org/namespaces/inkscape}label":
+                    "Départements Métropolitains",
+            },
+        )
+        if fill_overlay_transform:
+            overlay.set("transform", fill_overlay_transform)
+        overlay_ids = list(target_ids)
+        overlay_ids.extend(
+            companion_id
+            for target_id in target_ids
+            for companion_id in target_companions.get(target_id, [])
+        )
+        for target_id in overlay_ids:
+            source_element = (
+                overlay_id_index[target_id]
+                if target_id in overlay_id_index
+                else find_svg_target(
+                    overlay_id_index, overlay_parent_index, target_id
+                )
+            )
+            target_element = copy.deepcopy(source_element)
+            for parent in list(target_element.iter()):
+                for child in list(parent):
+                    if child.tag.rsplit("}", 1)[-1] == "text":
+                        parent.remove(child)
+            overlay.append(target_element)
+
+        inkscape_label = "{http://www.inkscape.org/namespaces/inkscape}label"
+        insert_at = len(root)
+        for index, element in enumerate(root):
+            if (
+                element.get(inkscape_label) == "Lakes"
+                or element.get("fill", "").upper() == "#C8EBFF"
+            ):
+                insert_at = index
+                break
+        root.insert(insert_at, overlay)
     id_index = {element.get("id"): element for element in root.iter() if element.get("id")}
     parent_index = {child: parent for parent in root.iter() for child in parent}
 
@@ -313,15 +377,114 @@ def highlight_svg_template(
     target_ids: list[str],
     highlight_color: str,
     target_companions: dict[str, list[str]],
+    inset: dict | None = None,
 ) -> None:
     root = ET.fromstring(template)
     id_index = {element.get("id"): element for element in root.iter() if element.get("id")}
     parent_index = {child: parent for parent in root.iter() for child in parent}
     for target_id in target_ids:
-        set_svg_fill(find_svg_target(id_index, parent_index, target_id), highlight_color)
+        target = find_svg_target(id_index, parent_index, target_id)
+        set_svg_fill(target, highlight_color)
+        parent = parent_index.get(target)
+        if parent is not None:
+            parent.remove(target)
+            parent.append(target)
         for companion_id in target_companions.get(target_id, []):
-            set_svg_fill(id_index[companion_id], highlight_color)
+            companion = id_index[companion_id]
+            set_svg_fill(companion, highlight_color)
+            parent = parent_index.get(companion)
+            if parent is not None:
+                parent.remove(companion)
+                parent.append(companion)
+    if inset and set(target_ids) & set(inset["target_ids"]):
+        add_svg_magnifier(root, inset)
     ET.ElementTree(root).write(destination, encoding="utf-8", xml_declaration=True)
+
+
+def add_svg_magnifier(root: ET.Element, inset: dict) -> None:
+    """Overlay a clipped, enlarged copy of the map at its geographic location."""
+    svg_namespace = "http://www.w3.org/2000/svg"
+    source_x = float(inset["source_x"])
+    source_y = float(inset["source_y"])
+    center_x = float(inset.get("center_x", source_x))
+    center_y = float(inset.get("center_y", source_y))
+    radius = float(inset["radius"])
+    scale = float(inset["scale"])
+
+    excluded_tags = {"defs", "metadata", "namedview"}
+    map_children = [
+        copy.deepcopy(child)
+        for child in root
+        if child.tag.rsplit("}", 1)[-1] not in excluded_tags
+    ]
+
+    defs = next(
+        (
+            child
+            for child in root
+            if child.tag == f"{{{svg_namespace}}}defs"
+        ),
+        None,
+    )
+    if defs is None:
+        defs = ET.Element(f"{{{svg_namespace}}}defs")
+        root.insert(0, defs)
+    clip_path = ET.SubElement(
+        defs,
+        f"{{{svg_namespace}}}clipPath",
+        {"id": "gaz-map-inset-clip"},
+    )
+    ET.SubElement(
+        clip_path,
+        f"{{{svg_namespace}}}circle",
+        {"cx": str(center_x), "cy": str(center_y), "r": str(radius)},
+    )
+
+    ET.SubElement(
+        root,
+        f"{{{svg_namespace}}}circle",
+        {
+            "id": "gaz-map-inset-halo",
+            "cx": str(center_x),
+            "cy": str(center_y),
+            "r": str(radius),
+            "fill": inset.get("halo_color", "#FFFFFF"),
+            "stroke": inset.get("halo_color", "#FFFFFF"),
+            "stroke-width": str(inset.get("halo_width", 18)),
+        },
+    )
+    clipped_group = ET.SubElement(
+        root,
+        f"{{{svg_namespace}}}g",
+        {
+            "id": "gaz-map-inset",
+            "clip-path": "url(#gaz-map-inset-clip)",
+        },
+    )
+    enlarged_map = ET.SubElement(
+        clipped_group,
+        f"{{{svg_namespace}}}g",
+        {
+            "transform": (
+                f"translate({center_x} {center_y}) scale({scale}) "
+                f"translate({-source_x} {-source_y})"
+            )
+        },
+    )
+    enlarged_map.extend(map_children)
+    ET.SubElement(
+        root,
+        f"{{{svg_namespace}}}circle",
+        {
+            "id": "gaz-map-inset-border",
+            "cx": str(center_x),
+            "cy": str(center_y),
+            "r": str(radius),
+            "fill": "none",
+            "stroke": inset.get("border_color", "#646464"),
+            "stroke-width": str(inset.get("border_width", 6)),
+        },
+    )
 
 
 def subdivision_output_row(
@@ -369,8 +532,9 @@ def subdivision_output_row(
     output_row.update({
         "map_image": f'<img src="{filename}" />' if filename else "",
         "map_filename": filename,
-        "map_source": source_url,
     })
+    if config.get("include_map_source", True):
+        output_row["map_source"] = source_url
     return output_row
 
 
@@ -401,6 +565,10 @@ def generate_template_subdivision_set(
         set(config["map_hidden_layers"]),
         config["neutral_color"],
         config.get("map_target_companions", {}),
+        source_path.parent / config["map_fill_overlay"]
+        if config.get("map_fill_overlay")
+        else None,
+        config.get("map_fill_overlay_transform"),
     )
     rows = []
     for row_number, subdivision in enumerate(subdivisions, start=1):
@@ -424,6 +592,7 @@ def generate_template_subdivision_set(
             target_ids,
             config["highlight_color"],
             config.get("map_target_companions", {}),
+            config.get("map_inset"),
         )
         rows.append(subdivision_output_row(
             subdivision,
@@ -524,8 +693,9 @@ def generate_subdivision_set(
         output_row.update({
             "map_image": f'<img src="{filename}" />',
             "map_filename": filename,
-            "map_source": source_url,
         })
+        if config.get("include_map_source", True):
+            output_row["map_source"] = source_url
         rows.append(output_row)
     write_csv(output_path, rows)
     return rows, cached_by_code
@@ -537,9 +707,13 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
     cache_dir = PROJECT_DIR / "cache" / country_code
     country_output_dir = OUTPUT_DIR / country_code
     media_dir = country_output_dir / "media"
-    cache_dir.mkdir(parents=True, exist_ok=True)
     media_dir.mkdir(parents=True, exist_ok=True)
     clear_country_media(media_dir, country_code)
+    if "map_template" in config:
+        if cache_dir.exists():
+            shutil.rmtree(cache_dir)
+    else:
+        cache_dir.mkdir(parents=True, exist_ok=True)
 
     subdivision_source = data_dir / config.get(
         "subdivision_source", "subdivisions.csv"
@@ -570,20 +744,31 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
             for target_id in subdivision["map_target_ids"].split(";")
             if target_id not in set(config.get("map_omitted_target_ids", []))
         }
-        city_base_svg = cache_dir / "city-base.svg"
-        city_base_svg.write_bytes(prepare_svg_template(
-            data_dir / config["map_template"],
-            current_target_ids,
+        city_fill_overlay = config.get(
+            "city_map_fill_overlay", config.get("map_fill_overlay")
+        )
+        city_base_svg = prepare_svg_template(
+            data_dir / config.get("city_map_template", config["map_template"]),
+            current_target_ids if city_fill_overlay else set(),
             set(config["map_hidden_layers"]),
             config["neutral_color"],
             config.get("map_target_companions", {}),
-        ))
+            data_dir / city_fill_overlay if city_fill_overlay else None,
+            config.get("map_fill_overlay_transform"),
+        )
         if parent_source.exists():
+            parent_config = dict(config)
+            parent_config["map_template"] = config.get(
+                "parent_map_template", config["map_template"]
+            )
+            parent_config["map_source"] = config.get(
+                "parent_map_source", config["map_source"]
+            )
             parent_rows = generate_template_subdivision_set(
                 parent_source,
                 country_output_dir / config["subdivision_parent_output"],
                 media_dir,
-                config,
+                parent_config,
                 family_order=3,
                 family_code="HIST",
                 media_kind="subdivision-old",
@@ -591,6 +776,16 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
             )
         if children_source.exists():
             children_config = dict(config)
+            children_config["map_template"] = config.get(
+                "children_map_template", config["map_template"]
+            )
+            children_config["map_source"] = config.get(
+                "children_map_source", config["map_source"]
+            )
+            children_config["map_neutral_source"] = config.get(
+                "children_map_neutral_source",
+                config.get("map_neutral_source", children_source.name),
+            )
             children_config["map_hidden_layers"] = [
                 label
                 for label in config["map_hidden_layers"]
@@ -600,6 +795,7 @@ def generate_country(data_dir: Path, seed_dir: Path | None) -> tuple[list[dict[s
                 **config.get("map_target_companions", {}),
                 **config.get("children_map_target_companions", {}),
             }
+            children_config["map_inset"] = config.get("children_map_inset")
             children_rows = generate_template_subdivision_set(
                 children_source,
                 country_output_dir / config["subdivision_children_output"],

@@ -9,17 +9,36 @@
   "subdivision_output": "subdivisions--regions.csv",
   "subdivision_parent_output": "subdivisions-with-parent--regions-old.csv",
   "subdivision_children_output": "subdivisions-with-parent--departments.csv",
-  "map_template": "maps/regions-template-source.svg",
+  "map_template": "maps/regions-current-base-source.svg",
+  "parent_map_template": "maps/regions-old-base-source.svg",
+  "children_map_template": "maps/departments-base-source.svg",
+  "city_map_template": "maps/regions-current-base-source.svg",
+  "map_fill_overlay": "maps/departments-fill-source.svg",
+  "city_map_fill_overlay": null,
   "map_neutral_source": "regions.csv",
-  "map_source": "https://commons.wikimedia.org/wiki/File:France_r%C3%A9gionale.svg",
+  "children_map_neutral_source": "departments.csv",
+  "map_source": "https://commons.wikimedia.org/wiki/File:France_location_map-Regions-2016.svg",
+  "parent_map_source": "https://commons.wikimedia.org/wiki/File:France_location_map-Regions-2015.svg",
+  "children_map_source": "https://commons.wikimedia.org/wiki/File:France_location_map-Departements-2015.svg",
   "highlight_color": "#C11E1E",
-  "neutral_color": "#FEFEE9",
+  "neutral_color": "#FEFEE4",
   "marker_color": "#C11E1E",
   "highlighted_marker_halo_radius": 43,
   "highlighted_marker_radius": 28,
   "highlighted_marker_stroke_width": 4,
   "context_marker_radius": 12,
   "context_marker_stroke_width": 3,
+  "children_map_inset": {
+    "target_ids": ["75", "92", "93", "94"],
+    "source_x": 1032,
+    "source_y": 484,
+    "radius": 245,
+    "scale": 4.5,
+    "halo_color": "#FFFFFF",
+    "halo_width": 18,
+    "border_color": "#646464",
+    "border_width": 6
+  },
   "subdivision_type_english_omissions": [
     "Region",
     "Department",
@@ -30,39 +49,15 @@
     "Région actuelle": "Région"
   },
   "projection": {
-    "longitude_min": -5.0,
+    "longitude_min": -5.8,
     "longitude_max": 10.0,
-    "latitude_min": 41.3,
-    "latitude_max": 51.2,
-    "x_min": 117.0,
-    "x_max": 1831.0,
-    "y_min": 86.0,
-    "y_max": 1850.0
-  },
-  "map_target_companions": {
-    "69": ["g6422"]
-  },
-  "children_map_visible_layers": ["Encart Paris-Petite-Couronne"],
-  "children_map_target_companions": {
-    "75": ["075 Paris"],
-    "92": ["092 Hauts-de-Seine"],
-    "93": ["093 Seine-Saint-Denis"],
-    "94": ["094 Val-de-Marne"]
+    "latitude_min": 41.0,
+    "latitude_max": 51.5,
+    "x_min": 0.0,
+    "x_max": 2000.0,
+    "y_min": 0.0,
+    "y_max": 1922.0
   },
   "map_omitted_target_ids": ["971", "972", "973", "974", "976"],
-  "map_hidden_layers": [
-    "Encarts Départements d'Outre-Mer",
-    "Régions Métropolitaines",
-    "Départements gris",
-    "Métropole de Lyon gris",
-    "Noms des départements",
-    "Noms des régions",
-    "Numéros des départements",
-    "Chefs-lieux de départements",
-    "Villes",
-    "Chefs-lieux de région",
-    "Echelle et Mini-carte",
-    "Coordonnées",
-    "Encart Paris-Petite-Couronne"
-  ]
+  "map_hidden_layers": []
 }

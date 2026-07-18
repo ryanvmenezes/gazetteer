@@ -1,17 +1,17 @@
-subdivision_native,subdivision_english,subdivision_type_native,subdivision_type_english,capital_native,capital_english,subdivision_code,commons_file
-Baden-Württemberg,Baden-Württemberg,Land,State,Stuttgart,Stuttgart,DE-BW,Locator map Baden-Württemberg in Germany.svg
-Bayern,Bavaria,Freistaat,Free State,München,Munich,DE-BY,Locator map Bavaria in Germany.svg
-Berlin,Berlin,Land,State,Berlin,Berlin,DE-BE,Locator map Berlin in Germany.svg
-Brandenburg,Brandenburg,Land,State,Potsdam,Potsdam,DE-BB,Locator map Brandenburg in Germany.svg
-Bremen,Bremen,Freie Hansestadt,Free Hanseatic City,Bremen,Bremen,DE-HB,Locator map Bremen in Germany.svg
-Hamburg,Hamburg,Freie und Hansestadt,Free and Hanseatic City,Hamburg,Hamburg,DE-HH,Locator map Hamburg in Germany.svg
-Hessen,Hesse,Land,State,Wiesbaden,Wiesbaden,DE-HE,Locator map Hesse in Germany.svg
-Mecklenburg-Vorpommern,Mecklenburg-Western Pomerania,Land,State,Schwerin,Schwerin,DE-MV,Locator map Mecklenburg-Vorpommern in Germany.svg
-Niedersachsen,Lower Saxony,Land,State,Hannover,Hanover,DE-NI,Locator map Lower-Saxony in Germany.svg
-Nordrhein-Westfalen,North Rhine-Westphalia,Land,State,Düsseldorf,Düsseldorf,DE-NW,Locator map North Rhine-Westphalia in Germany.svg
-Rheinland-Pfalz,Rhineland-Palatinate,Land,State,Mainz,Mainz,DE-RP,Locator map Rhineland-Palatinate in Germany.svg
-Saarland,Saarland,Land,State,Saarbrücken,Saarbrücken,DE-SL,Locator map Saarland in Germany.svg
-Sachsen,Saxony,Freistaat,Free State,Dresden,Dresden,DE-SN,Locator map Saxony in Germany.svg
-Sachsen-Anhalt,Saxony-Anhalt,Land,State,Magdeburg,Magdeburg,DE-ST,Locator map Saxony-Anhalt in Germany.svg
-Schleswig-Holstein,Schleswig-Holstein,Land,State,Kiel,Kiel,DE-SH,Locator map Schleswig-Holstein in Germany.svg
-Thüringen,Thuringia,Freistaat,Free State,Erfurt,Erfurt,DE-TH,Locator map Thuringia in Germany.svg
+subdivision_native,subdivision_english,subdivision_type_native,subdivision_type_english,capital_native,capital_english,subdivision_code,map_target_ids
+Baden-Württemberg,Baden-Württemberg,Land,State,Stuttgart,Stuttgart,DE-BW,DE-BW
+Bayern,Bavaria,Freistaat,Free State,München,Munich,DE-BY,DE-BY
+Berlin,Berlin,Land,State,Berlin,Berlin,DE-BE,DE-BE
+Brandenburg,Brandenburg,Land,State,Potsdam,Potsdam,DE-BB,DE-BB
+Bremen,Bremen,Freie Hansestadt,Free Hanseatic City,Bremen,Bremen,DE-HB,DE-HB
+Hamburg,Hamburg,Freie und Hansestadt,Free and Hanseatic City,Hamburg,Hamburg,DE-HH,DE-HH
+Hessen,Hesse,Land,State,Wiesbaden,Wiesbaden,DE-HE,DE-HE
+Mecklenburg-Vorpommern,Mecklenburg-Western Pomerania,Land,State,Schwerin,Schwerin,DE-MV,DE-MV
+Niedersachsen,Lower Saxony,Land,State,Hannover,Hanover,DE-NI,DE-NI
+Nordrhein-Westfalen,North Rhine-Westphalia,Land,State,Düsseldorf,Düsseldorf,DE-NW,DE-NW
+Rheinland-Pfalz,Rhineland-Palatinate,Land,State,Mainz,Mainz,DE-RP,DE-RP
+Saarland,Saarland,Land,State,Saarbrücken,Saarbrücken,DE-SL,DE-SL
+Sachsen,Saxony,Freistaat,Free State,Dresden,Dresden,DE-SN,DE-SN
+Sachsen-Anhalt,Saxony-Anhalt,Land,State,Magdeburg,Magdeburg,DE-ST,DE-ST
+Schleswig-Holstein,Schleswig-Holstein,Land,State,Kiel,Kiel,DE-SH,DE-SH
+Thüringen,Thuringia,Freistaat,Free State,Erfurt,Erfurt,DE-TH,DE-TH
