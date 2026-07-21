@@ -1,0 +1,20 @@
+#separator:Comma
+#columns:sort_key,country_code,country_native,country_english,subdivision_native,subdivision_english,subdivision_type_native,subdivision_type_english,capital_native,capital_english,subdivision_code,map_image,map_filename
+FRA_01_SUB1_001,FRA,France,France,Auvergne-Rhône-Alpes,Auvergne-Rhône-Alps,Région,,Lyon,,FR-ARA,"<img src=""gazz_fra_region_auvergne-rhone-alpes.svg"" />",gazz_fra_region_auvergne-rhone-alpes.svg
+FRA_01_SUB1_002,FRA,France,France,Bourgogne-Franche-Comté,Burgundy-Free County,Région,,Dijon,,FR-BFC,"<img src=""gazz_fra_region_bourgogne-franche-comte.svg"" />",gazz_fra_region_bourgogne-franche-comte.svg
+FRA_01_SUB1_003,FRA,France,France,Bretagne,Brittany,Région,,Rennes,,FR-BRE,"<img src=""gazz_fra_region_bretagne.svg"" />",gazz_fra_region_bretagne.svg
+FRA_01_SUB1_004,FRA,France,France,Centre-Val de Loire,Centre-Loire Valley,Région,,Orléans,,FR-CVL,"<img src=""gazz_fra_region_centre-val-de-loire.svg"" />",gazz_fra_region_centre-val-de-loire.svg
+FRA_01_SUB1_005,FRA,France,France,Corse,Corsica,Collectivité,Collectivity,Ajaccio,,FR-20R,"<img src=""gazz_fra_region_corse.svg"" />",gazz_fra_region_corse.svg
+FRA_01_SUB1_006,FRA,France,France,Grand Est,,Région,,Strasbourg,,FR-GES,"<img src=""gazz_fra_region_grand-est.svg"" />",gazz_fra_region_grand-est.svg
+FRA_01_SUB1_007,FRA,France,France,Hauts-de-France,,Région,,Lille,,FR-HDF,"<img src=""gazz_fra_region_hauts-de-france.svg"" />",gazz_fra_region_hauts-de-france.svg
+FRA_01_SUB1_008,FRA,France,France,Île-de-France,,Région,,Paris,,FR-IDF,"<img src=""gazz_fra_region_ile-de-france.svg"" />",gazz_fra_region_ile-de-france.svg
+FRA_01_SUB1_009,FRA,France,France,Normandie,Normandy,Région,,Rouen,,FR-NOR,"<img src=""gazz_fra_region_normandie.svg"" />",gazz_fra_region_normandie.svg
+FRA_01_SUB1_010,FRA,France,France,Nouvelle-Aquitaine,New Aquitaine,Région,,Bordeaux,,FR-NAQ,"<img src=""gazz_fra_region_nouvelle-aquitaine.svg"" />",gazz_fra_region_nouvelle-aquitaine.svg
+FRA_01_SUB1_011,FRA,France,France,Occitanie,Occitania,Région,,Toulouse,,FR-OCC,"<img src=""gazz_fra_region_occitanie.svg"" />",gazz_fra_region_occitanie.svg
+FRA_01_SUB1_012,FRA,France,France,Pays de la Loire,,Région,,Nantes,,FR-PDL,"<img src=""gazz_fra_region_pays-de-la-loire.svg"" />",gazz_fra_region_pays-de-la-loire.svg
+FRA_01_SUB1_013,FRA,France,France,Provence-Alpes-Côte d'Azur,,Région,,Marseille,,FR-PAC,"<img src=""gazz_fra_region_provence-alpes-cote-d-azur.svg"" />",gazz_fra_region_provence-alpes-cote-d-azur.svg
+FRA_01_SUB1_014,FRA,France,France,Guyane,French Guiana,Collectivité territoriale unique,Single territorial collectivity,Cayenne,,FR-GF,,
+FRA_01_SUB1_015,FRA,France,France,Guadeloupe,,Région et département d'outre-mer,Overseas region and department,Basse-Terre,,FR-GP,,
+FRA_01_SUB1_016,FRA,France,France,Martinique,,Collectivité territoriale unique,Single territorial collectivity,Fort-de-France,,FR-MQ,,
+FRA_01_SUB1_017,FRA,France,France,La Réunion,Réunion,Région et département d'outre-mer,Overseas region and department,Saint-Denis,,FR-RE,,
+FRA_01_SUB1_018,FRA,France,France,Mayotte,,Département et région d'outre-mer,Overseas department and region,Mamoudzou,,FR-YT,,

@@ -1,0 +1,18 @@
+subdivision_native,subdivision_english,subdivision_type_native,subdivision_type_english,capital_native,capital_english,subdivision_code,map_target_ids
+Andalucía,Andalusia,Comunidad autónoma,Autonomous community,Sevilla,Seville,ES-AN,polygon176
+Aragón,Aragon,Comunidad autónoma,Autonomous community,Zaragoza,Zaragoza,ES-AR,path120
+Asturias,Asturias,Comunidad autónoma,Autonomous community,Oviedo,Oviedo,ES-AS,polygon172
+Islas Baleares / Illes Balears,Balearic Islands,Comunitat autònoma,Autonomous community,Palma,Palma,ES-IB,polygon68;polygon76;polygon86;polygon88
+País Vasco / Euskadi,Basque Country,Autonomia erkidegoa,Autonomous community,Vitoria-Gasteiz,Vitoria-Gasteiz,ES-PV,path140
+Canarias,Canary Islands,Comunidad autónoma,Autonomous community,Las Palmas de Gran Canaria / Santa Cruz de Tenerife,Las Palmas de Gran Canaria / Santa Cruz de Tenerife,ES-CN,CANARIAS
+Cantabria,Cantabria,Comunidad autónoma,Autonomous community,Santander,Santander,ES-CB,path154
+Castilla y León,Castile and León,Comunidad autónoma,Autonomous community,Valladolid,Valladolid,ES-CL,path170
+Castilla-La Mancha,Castilla-La Mancha,Comunidad autónoma,Autonomous community,Toledo,Toledo,ES-CM,polygon162
+Cataluña / Catalunya,Catalonia,Comunitat autònoma,Autonomous community,Barcelona,Barcelona,ES-CT,polygon98
+Extremadura,Extremadura,Comunidad autónoma,Autonomous community,Mérida,Mérida,ES-EX,polygon174
+Galicia,Galicia,Comunidade autónoma,Autonomous community,Santiago de Compostela,Santiago de Compostela,ES-GA,polygon196
+La Rioja,La Rioja,Comunidad autónoma,Autonomous community,Logroño,Logroño,ES-RI,path136
+Comunidad de Madrid,Community of Madrid,Comunidad autónoma,Autonomous community,Madrid,Madrid,ES-MD,path156
+Región de Murcia,Region of Murcia,Comunidad autónoma,Autonomous community,Murcia,Murcia,ES-MC,polygon118
+Navarra / Nafarroa,Navarre,Foru erkidegoa,Chartered community,Pamplona / Iruña,Pamplona,ES-NC,polygon124
+Comunidad Valenciana / Comunitat Valenciana,Valencian Community,Comunitat autònoma,Autonomous community,Valencia / València,Valencia,ES-VC,polygon116

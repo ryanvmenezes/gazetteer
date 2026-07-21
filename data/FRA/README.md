@@ -69,5 +69,5 @@ and license, identify the modifications, and satisfy share-alike requirements.
 ## Generated material
 
 Run `python3 scripts/generate.py FRA` from the repository root. Source files in
-this directory are tracked; generated CSVs go to `outputs/FRA`, and rebuildable
+this directory are tracked; generated `.acsv` files go to `outputs/FRA`, and rebuildable
 media goes to `outputs/FRA/media`.

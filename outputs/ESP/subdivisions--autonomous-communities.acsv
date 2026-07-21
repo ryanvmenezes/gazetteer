@@ -1,0 +1,19 @@
+#separator:Comma
+#columns:sort_key,country_code,country_native,country_english,subdivision_native,subdivision_english,subdivision_type_native,subdivision_type_english,capital_native,capital_english,subdivision_code,map_image,map_filename
+ESP_01_SUB1_001,ESP,España,Spain,Andalucía,Andalusia,Comunidad autónoma,Autonomous community,Sevilla,Seville,ES-AN,"<img src=""gazz_esp_community_andalucia.svg"" />",gazz_esp_community_andalucia.svg
+ESP_01_SUB1_002,ESP,España,Spain,Aragón,Aragon,Comunidad autónoma,Autonomous community,Zaragoza,,ES-AR,"<img src=""gazz_esp_community_aragon.svg"" />",gazz_esp_community_aragon.svg
+ESP_01_SUB1_003,ESP,España,Spain,Asturias,,Comunidad autónoma,Autonomous community,Oviedo,,ES-AS,"<img src=""gazz_esp_community_asturias.svg"" />",gazz_esp_community_asturias.svg
+ESP_01_SUB1_004,ESP,España,Spain,Islas Baleares / Illes Balears,Balearic Islands,Comunitat autònoma,Autonomous community,Palma,,ES-IB,"<img src=""gazz_esp_community_islas-baleares.svg"" />",gazz_esp_community_islas-baleares.svg
+ESP_01_SUB1_005,ESP,España,Spain,País Vasco / Euskadi,Basque Country,Autonomia erkidegoa,Autonomous community,Vitoria-Gasteiz,,ES-PV,"<img src=""gazz_esp_community_pais-vasco.svg"" />",gazz_esp_community_pais-vasco.svg
+ESP_01_SUB1_006,ESP,España,Spain,Canarias,Canary Islands,Comunidad autónoma,Autonomous community,Las Palmas de Gran Canaria / Santa Cruz de Tenerife,,ES-CN,,
+ESP_01_SUB1_007,ESP,España,Spain,Cantabria,,Comunidad autónoma,Autonomous community,Santander,,ES-CB,"<img src=""gazz_esp_community_cantabria.svg"" />",gazz_esp_community_cantabria.svg
+ESP_01_SUB1_008,ESP,España,Spain,Castilla y León,Castile and León,Comunidad autónoma,Autonomous community,Valladolid,,ES-CL,"<img src=""gazz_esp_community_castilla-y-leon.svg"" />",gazz_esp_community_castilla-y-leon.svg
+ESP_01_SUB1_009,ESP,España,Spain,Castilla-La Mancha,,Comunidad autónoma,Autonomous community,Toledo,,ES-CM,"<img src=""gazz_esp_community_castilla-la-mancha.svg"" />",gazz_esp_community_castilla-la-mancha.svg
+ESP_01_SUB1_010,ESP,España,Spain,Cataluña / Catalunya,Catalonia,Comunitat autònoma,Autonomous community,Barcelona,,ES-CT,"<img src=""gazz_esp_community_cataluna.svg"" />",gazz_esp_community_cataluna.svg
+ESP_01_SUB1_011,ESP,España,Spain,Extremadura,,Comunidad autónoma,Autonomous community,Mérida,,ES-EX,"<img src=""gazz_esp_community_extremadura.svg"" />",gazz_esp_community_extremadura.svg
+ESP_01_SUB1_012,ESP,España,Spain,Galicia,,Comunidade autónoma,Autonomous community,Santiago de Compostela,,ES-GA,"<img src=""gazz_esp_community_galicia.svg"" />",gazz_esp_community_galicia.svg
+ESP_01_SUB1_013,ESP,España,Spain,La Rioja,,Comunidad autónoma,Autonomous community,Logroño,,ES-RI,"<img src=""gazz_esp_community_la-rioja.svg"" />",gazz_esp_community_la-rioja.svg
+ESP_01_SUB1_014,ESP,España,Spain,Comunidad de Madrid,Community of Madrid,Comunidad autónoma,Autonomous community,Madrid,,ES-MD,"<img src=""gazz_esp_community_comunidad-de-madrid.svg"" />",gazz_esp_community_comunidad-de-madrid.svg
+ESP_01_SUB1_015,ESP,España,Spain,Región de Murcia,Region of Murcia,Comunidad autónoma,Autonomous community,Murcia,,ES-MC,"<img src=""gazz_esp_community_region-de-murcia.svg"" />",gazz_esp_community_region-de-murcia.svg
+ESP_01_SUB1_016,ESP,España,Spain,Navarra / Nafarroa,Navarre,Foru erkidegoa,Chartered community,Pamplona / Iruña,Pamplona,ES-NC,"<img src=""gazz_esp_community_navarra.svg"" />",gazz_esp_community_navarra.svg
+ESP_01_SUB1_017,ESP,España,Spain,Comunidad Valenciana / Comunitat Valenciana,Valencian Community,Comunitat autònoma,Autonomous community,Valencia / València,Valencia,ES-VC,"<img src=""gazz_esp_community_comunidad-valenciana.svg"" />",gazz_esp_community_comunidad-valenciana.svg

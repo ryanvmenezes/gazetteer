@@ -3,3 +3,4 @@ outputs/**/media/
 cache/
 __pycache__/
 *.pyc
+anki-import.json

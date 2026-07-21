@@ -1,0 +1,18 @@
+#separator:Comma
+#columns:sort_key,country_code,country_native,country_english,subdivision_native,subdivision_english,subdivision_type_native,subdivision_type_english,capital_native,capital_english,subdivision_code,map_image,map_filename
+DEU_01_SUB1_001,DEU,Deutschland,Germany,Baden-Württemberg,,Land,State,Stuttgart,,DE-BW,"<img src=""gazz_deu_state_baden-wuerttemberg.svg"" />",gazz_deu_state_baden-wuerttemberg.svg
+DEU_01_SUB1_002,DEU,Deutschland,Germany,Bayern,Bavaria,Freistaat,Free State,München,Munich,DE-BY,"<img src=""gazz_deu_state_bayern.svg"" />",gazz_deu_state_bayern.svg
+DEU_01_SUB1_003,DEU,Deutschland,Germany,Berlin,,Land,State,Berlin,,DE-BE,"<img src=""gazz_deu_state_berlin.svg"" />",gazz_deu_state_berlin.svg
+DEU_01_SUB1_004,DEU,Deutschland,Germany,Brandenburg,,Land,State,Potsdam,,DE-BB,"<img src=""gazz_deu_state_brandenburg.svg"" />",gazz_deu_state_brandenburg.svg
+DEU_01_SUB1_005,DEU,Deutschland,Germany,Bremen,,Freie Hansestadt,Free Hanseatic City,Bremen,,DE-HB,"<img src=""gazz_deu_state_bremen.svg"" />",gazz_deu_state_bremen.svg
+DEU_01_SUB1_006,DEU,Deutschland,Germany,Hamburg,,Freie und Hansestadt,Free and Hanseatic City,Hamburg,,DE-HH,"<img src=""gazz_deu_state_hamburg.svg"" />",gazz_deu_state_hamburg.svg
+DEU_01_SUB1_007,DEU,Deutschland,Germany,Hessen,Hesse,Land,State,Wiesbaden,,DE-HE,"<img src=""gazz_deu_state_hessen.svg"" />",gazz_deu_state_hessen.svg
+DEU_01_SUB1_008,DEU,Deutschland,Germany,Mecklenburg-Vorpommern,Mecklenburg-Western Pomerania,Land,State,Schwerin,,DE-MV,"<img src=""gazz_deu_state_mecklenburg-vorpommern.svg"" />",gazz_deu_state_mecklenburg-vorpommern.svg
+DEU_01_SUB1_009,DEU,Deutschland,Germany,Niedersachsen,Lower Saxony,Land,State,Hannover,Hanover,DE-NI,"<img src=""gazz_deu_state_niedersachsen.svg"" />",gazz_deu_state_niedersachsen.svg
+DEU_01_SUB1_010,DEU,Deutschland,Germany,Nordrhein-Westfalen,North Rhine-Westphalia,Land,State,Düsseldorf,,DE-NW,"<img src=""gazz_deu_state_nordrhein-westfalen.svg"" />",gazz_deu_state_nordrhein-westfalen.svg
+DEU_01_SUB1_011,DEU,Deutschland,Germany,Rheinland-Pfalz,Rhineland-Palatinate,Land,State,Mainz,,DE-RP,"<img src=""gazz_deu_state_rheinland-pfalz.svg"" />",gazz_deu_state_rheinland-pfalz.svg
+DEU_01_SUB1_012,DEU,Deutschland,Germany,Saarland,,Land,State,Saarbrücken,,DE-SL,"<img src=""gazz_deu_state_saarland.svg"" />",gazz_deu_state_saarland.svg
+DEU_01_SUB1_013,DEU,Deutschland,Germany,Sachsen,Saxony,Freistaat,Free State,Dresden,,DE-SN,"<img src=""gazz_deu_state_sachsen.svg"" />",gazz_deu_state_sachsen.svg
+DEU_01_SUB1_014,DEU,Deutschland,Germany,Sachsen-Anhalt,Saxony-Anhalt,Land,State,Magdeburg,,DE-ST,"<img src=""gazz_deu_state_sachsen-anhalt.svg"" />",gazz_deu_state_sachsen-anhalt.svg
+DEU_01_SUB1_015,DEU,Deutschland,Germany,Schleswig-Holstein,,Land,State,Kiel,,DE-SH,"<img src=""gazz_deu_state_schleswig-holstein.svg"" />",gazz_deu_state_schleswig-holstein.svg
+DEU_01_SUB1_016,DEU,Deutschland,Germany,Thüringen,Thuringia,Freistaat,Free State,Erfurt,,DE-TH,"<img src=""gazz_deu_state_thueringen.svg"" />",gazz_deu_state_thueringen.svg

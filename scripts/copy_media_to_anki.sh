@@ -14,5 +14,5 @@ if [ ! -d "$destination" ]; then
   exit 2
 fi
 
-find "$project_dir/outputs" -type f -path '*/media/gaz-*' -exec cp {} "$destination"/ \;
+find "$project_dir/outputs" -type f -path '*/media/gazz_*' -exec cp {} "$destination"/ \;
 echo "Copied Gazetteer media to $destination"

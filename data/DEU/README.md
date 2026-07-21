@@ -42,6 +42,6 @@ marker styling also lives there.
 ## Generated material
 
 Run `python3 scripts/generate.py DEU` from the repository root. Source files in
-this directory are tracked, generated CSVs go to `outputs/DEU`, and rebuildable
+this directory are tracked, generated `.acsv` files go to `outputs/DEU`, and rebuildable
 media goes to `outputs/DEU/media`. Germany's tracked template is read directly,
 so generation does not create a cache directory.

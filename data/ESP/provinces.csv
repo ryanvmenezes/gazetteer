@@ -1,0 +1,51 @@
+subdivision_native,subdivision_english,subdivision_type_native,subdivision_type_english,capital_native,capital_english,subdivision_code,parent_subdivision_native,parent_subdivision_english,parent_subdivision_type_native,parent_subdivision_type_english,parent_subdivision_code,map_target_ids
+Almería,Almería,Provincia,Province,Almería,Almería,ES-AL,Andalucía,Andalusia,Comunidad autónoma,Autonomous community,ES-AN,path279
+Cádiz,Cádiz,Provincia,Province,Cádiz,Cádiz,ES-CA,Andalucía,Andalusia,Comunidad autónoma,Autonomous community,ES-AN,path389
+Córdoba,Córdoba,Provincia,Province,Córdoba,Córdoba,ES-CO,Andalucía,Andalusia,Comunidad autónoma,Autonomous community,ES-AN,path379
+Granada,Granada,Provincia,Province,Granada,Granada,ES-GR,Andalucía,Andalusia,Comunidad autónoma,Autonomous community,ES-AN,path331
+Huelva,Huelva,Provincia,Province,Huelva,Huelva,ES-H,Andalucía,Andalusia,Comunidad autónoma,Autonomous community,ES-AN,path401
+Jaén,Jaén,Provincia,Province,Jaén,Jaén,ES-J,Andalucía,Andalusia,Comunidad autónoma,Autonomous community,ES-AN,polygon333
+Málaga,Málaga,Provincia,Province,Málaga,Málaga,ES-MA,Andalucía,Andalusia,Comunidad autónoma,Autonomous community,ES-AN,path369
+Sevilla,Seville,Provincia,Province,Sevilla,Seville,ES-SE,Andalucía,Andalusia,Comunidad autónoma,Autonomous community,ES-AN,path393
+Huesca,Huesca,Provincia,Province,Huesca,Huesca,ES-HU,Aragón,Aragon,Comunidad autónoma,Autonomous community,ES-AR,path243
+Teruel,Teruel,Provincia,Province,Teruel,Teruel,ES-TE,Aragón,Aragon,Comunidad autónoma,Autonomous community,ES-AR,path255
+Zaragoza,Zaragoza,Provincia,Province,Zaragoza,Zaragoza,ES-Z,Aragón,Aragon,Comunidad autónoma,Autonomous community,ES-AR,path257
+Asturias,Asturias,Provincia,Province,Oviedo,Oviedo,ES-O,Asturias,Asturias,Comunidad autónoma,Autonomous community,ES-AS,polygon403
+Islas Baleares / Illes Balears,Balearic Islands,Província,Province,Palma,Palma,ES-PM,Islas Baleares / Illes Balears,Balearic Islands,Comunitat autònoma,Autonomous community,ES-IB,polygon199;polygon205;polygon217;polygon221
+Álava / Araba,Álava,Probintzia,Province,Vitoria-Gasteiz,Vitoria-Gasteiz,ES-VI,País Vasco / Euskadi,Basque Country,Autonomia erkidegoa,Autonomous community,ES-PV,path287
+Vizcaya / Bizkaia,Biscay,Probintzia,Province,Bilbao / Bilbo,Bilbao,ES-BI,País Vasco / Euskadi,Basque Country,Autonomia erkidegoa,Autonomous community,ES-PV,path293
+Guipúzcoa / Gipuzkoa,Gipuzkoa,Probintzia,Province,San Sebastián / Donostia,San Sebastián,ES-SS,País Vasco / Euskadi,Basque Country,Autonomia erkidegoa,Autonomous community,ES-PV,path265
+Las Palmas,Las Palmas,Provincia,Province,Las Palmas de Gran Canaria,Las Palmas de Gran Canaria,ES-GC,Canarias,Canary Islands,Comunidad autónoma,Autonomous community,ES-CN,LAS-PALMAS
+Santa Cruz de Tenerife,Santa Cruz de Tenerife,Provincia,Province,Santa Cruz de Tenerife,Santa Cruz de Tenerife,ES-TF,Canarias,Canary Islands,Comunidad autónoma,Autonomous community,ES-CN,SANTA-CRUZ-DE-TENERIFE
+Cantabria,Cantabria,Provincia,Province,Santander,Santander,ES-S,Cantabria,Cantabria,Comunidad autónoma,Autonomous community,ES-CB,path341
+Ávila,Ávila,Provincia,Province,Ávila,Ávila,ES-AV,Castilla y León,Castile and León,Comunidad autónoma,Autonomous community,ES-CL,path381
+Burgos,Burgos,Provincia,Province,Burgos,Burgos,ES-BU,Castilla y León,Castile and León,Comunidad autónoma,Autonomous community,ES-CL,path339
+León,León,Provincia,Province,León,León,ES-LE,Castilla y León,Castile and León,Comunidad autónoma,Autonomous community,ES-CL,path395
+Palencia,Palencia,Provincia,Province,Palencia,Palencia,ES-P,Castilla y León,Castile and León,Comunidad autónoma,Autonomous community,ES-CL,path357
+Salamanca,Salamanca,Provincia,Province,Salamanca,Salamanca,ES-SA,Castilla y León,Castile and León,Comunidad autónoma,Autonomous community,ES-CL,path399
+Segovia,Segovia,Provincia,Province,Segovia,Segovia,ES-SG,Castilla y León,Castile and León,Comunidad autónoma,Autonomous community,ES-CL,path345
+Soria,Soria,Provincia,Province,Soria,Soria,ES-SO,Castilla y León,Castile and León,Comunidad autónoma,Autonomous community,ES-CL,path301
+Valladolid,Valladolid,Provincia,Province,Valladolid,Valladolid,ES-VA,Castilla y León,Castile and León,Comunidad autónoma,Autonomous community,ES-CL,path373
+Zamora,Zamora,Provincia,Province,Zamora,Zamora,ES-ZA,Castilla y León,Castile and León,Comunidad autónoma,Autonomous community,ES-CL,path391
+Albacete,Albacete,Provincia,Province,Albacete,Albacete,ES-AB,Castilla-La Mancha,Castilla-La Mancha,Comunidad autónoma,Autonomous community,ES-CM,path269
+Ciudad Real,Ciudad Real,Provincia,Province,Ciudad Real,Ciudad Real,ES-CR,Castilla-La Mancha,Castilla-La Mancha,Comunidad autónoma,Autonomous community,ES-CM,path359
+Cuenca,Cuenca,Provincia,Province,Cuenca,Cuenca,ES-CU,Castilla-La Mancha,Castilla-La Mancha,Comunidad autónoma,Autonomous community,ES-CM,path291
+Guadalajara,Guadalajara,Provincia,Province,Guadalajara,Guadalajara,ES-GU,Castilla-La Mancha,Castilla-La Mancha,Comunidad autónoma,Autonomous community,ES-CM,path303
+Toledo,Toledo,Provincia,Province,Toledo,Toledo,ES-TO,Castilla-La Mancha,Castilla-La Mancha,Comunidad autónoma,Autonomous community,ES-CM,path377
+Barcelona,Barcelona,Província,Province,Barcelona,Barcelona,ES-B,Cataluña / Catalunya,Catalonia,Comunitat autònoma,Autonomous community,ES-CT,path219
+Gerona / Girona,Girona,Província,Province,Gerona / Girona,Girona,ES-GI,Cataluña / Catalunya,Catalonia,Comunitat autònoma,Autonomous community,ES-CT,path209
+Lérida / Lleida,Lleida,Província,Province,Lérida / Lleida,Lleida,ES-L,Cataluña / Catalunya,Catalonia,Comunitat autònoma,Autonomous community,ES-CT,path231
+Tarragona,Tarragona,Província,Province,Tarragona,Tarragona,ES-T,Cataluña / Catalunya,Catalonia,Comunitat autònoma,Autonomous community,ES-CT,path233
+Badajoz,Badajoz,Provincia,Province,Badajoz,Badajoz,ES-BA,Extremadura,Extremadura,Comunidad autónoma,Autonomous community,ES-EX,path407
+Cáceres,Cáceres,Provincia,Province,Cáceres,Cáceres,ES-CC,Extremadura,Extremadura,Comunidad autónoma,Autonomous community,ES-EX,path405
+La Coruña / A Coruña,A Coruña,Provincia,Province,La Coruña / A Coruña,A Coruña,ES-C,Galicia,Galicia,Comunidade autónoma,Autonomous community,ES-GA,g3810
+Lugo,Lugo,Provincia,Province,Lugo,Lugo,ES-LU,Galicia,Galicia,Comunidade autónoma,Autonomous community,ES-GA,path411
+Orense / Ourense,Ourense,Provincia,Province,Orense / Ourense,Ourense,ES-OR,Galicia,Galicia,Comunidade autónoma,Autonomous community,ES-GA,path413
+Pontevedra,Pontevedra,Provincia,Province,Pontevedra,Pontevedra,ES-PO,Galicia,Galicia,Comunidade autónoma,Autonomous community,ES-GA,path427
+La Rioja,La Rioja,Provincia,Province,Logroño,Logroño,ES-LO,La Rioja,La Rioja,Comunidad autónoma,Autonomous community,ES-RI,path285
+Madrid,Madrid,Provincia,Province,Madrid,Madrid,ES-M,Comunidad de Madrid,Community of Madrid,Comunidad autónoma,Autonomous community,ES-MD,path343
+Murcia,Murcia,Provincia,Province,Murcia,Murcia,ES-MU,Región de Murcia,Region of Murcia,Comunidad autónoma,Autonomous community,ES-MC,polygon259
+Navarra / Nafarroa,Navarre,Probintzia,Province,Pamplona / Iruña,Pamplona,ES-NA,Navarra / Nafarroa,Navarre,Foru erkidegoa,Chartered community,ES-NC,polygon263
+Alicante / Alacant,Alicante,Província,Province,Alicante / Alacant,Alicante,ES-A,Comunidad Valenciana / Comunitat Valenciana,Valencian Community,Comunitat autònoma,Autonomous community,ES-VC,path245
+Castellón / Castelló,Castellón,Província,Province,Castellón de la Plana / Castelló de la Plana,Castellón de la Plana,ES-CS,Comunidad Valenciana / Comunitat Valenciana,Valencian Community,Comunitat autònoma,Autonomous community,ES-VC,path241
+Valencia / València,Valencia,Província,Province,Valencia / València,Valencia,ES-V,Comunidad Valenciana / Comunitat Valenciana,Valencian Community,Comunitat autònoma,Autonomous community,ES-VC,path253

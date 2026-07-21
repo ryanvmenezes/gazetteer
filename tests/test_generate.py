@@ -16,7 +16,7 @@ class GenerateTests(unittest.TestCase):
     def test_write_csv_uses_anki_file_headers(self):
         rows = [{"sort_key": "DEU_01_SUB1_001", "name": "Bayern"}]
         with TemporaryDirectory() as directory:
-            output = Path(directory) / "subdivisions.csv"
+            output = Path(directory) / "subdivisions.acsv"
             generate.write_csv(output, rows)
             lines = output.read_text(encoding="utf-8").splitlines()
 
@@ -31,7 +31,7 @@ class GenerateTests(unittest.TestCase):
         with TemporaryDirectory() as directory:
             root = Path(directory)
             source = root / "subdivisions_with_parent.csv"
-            output = root / "output.csv"
+            output = root / "output.acsv"
             cache = root / "cache"
             media = root / "media"
             cache.mkdir()
@@ -70,20 +70,33 @@ class GenerateTests(unittest.TestCase):
 
     def test_gazetteer_filenames(self):
         self.assertEqual(
-            generate.subdivision_filename("DEU", "DE-BY"),
-            "gaz-deu-subdivision-by.svg",
+            generate.subdivision_filename("DEU", "Bayern", "state"),
+            "gazz_deu_state_bayern.svg",
         )
         self.assertEqual(
-            generate.subdivision_filename("FRA", "FR-42", "subdivision-old"),
-            "gaz-fra-subdivision-old-42.svg",
+            generate.subdivision_filename("FRA", "Alsace", "region-old"),
+            "gazz_fra_region-old_alsace.svg",
         )
         self.assertEqual(
             generate.subdivision_filename(
-                "FRA", "FR-26", "subdivision-department"
+                "FRA", "Haute-Garonne", "departement"
             ),
-            "gaz-fra-subdivision-department-26.svg",
+            "gazz_fra_departement_haute-garonne.svg",
         )
-        self.assertEqual(generate.city_filename("DEU", "Köln"), "gaz-deu-city-koeln.svg")
+        self.assertEqual(
+            generate.city_filename("FRA", "Saint-Étienne"),
+            "gazz_fra_city_saint-etienne.svg",
+        )
+        self.assertEqual(
+            generate.city_filename("ESP", "Valencia / València"),
+            "gazz_esp_city_valencia.svg",
+        )
+        self.assertEqual(
+            generate.subdivision_filename(
+                "ESP", "País Vasco / Euskadi", "community"
+            ),
+            "gazz_esp_community_pais-vasco.svg",
+        )
 
     def test_sort_keys_preserve_country_and_row_order(self):
         config = {"country_code": "DEU", "country_order": 1}
@@ -223,6 +236,48 @@ class GenerateTests(unittest.TestCase):
 
         self.assertIn("fill:#C11E1E", rendered)
 
+    def test_fill_overlay_can_be_inserted_beneath_boundary_layer(self):
+        svg = '''<svg xmlns="http://www.w3.org/2000/svg">
+          <g id="shapes"><path id="area-1" style="fill:#abcdef"/></g>
+          <g id="boundaries"><path style="fill:none;stroke:#333333"/></g>
+        </svg>'''
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.svg"
+            source.write_text(svg, encoding="utf-8")
+            template = generate.prepare_svg_template(
+                source,
+                {"area-1"},
+                set(),
+                "#FEFEE9",
+                {},
+                source,
+                fill_overlay_before_id="boundaries",
+            ).decode("utf-8")
+
+        self.assertIn('id="gaz-target-area-1"', template)
+        self.assertLess(
+            template.index('id="gaz-fill-targets"'),
+            template.index('id="boundaries"'),
+        )
+
+    def test_spain_sources_include_expected_rows(self):
+        data = SCRIPT.parents[1] / "data" / "ESP"
+        communities = generate.read_csv(data / "autonomous-communities.csv")
+        provinces = generate.read_csv(data / "provinces.csv")
+        cities = generate.read_csv(data / "cities.csv")
+
+        self.assertEqual(len(communities), 17)
+        self.assertEqual(len(provinces), 50)
+        self.assertEqual(len(cities), 35)
+        self.assertNotIn("Ceuta", {row["subdivision_native"] for row in communities})
+        self.assertNotIn("Melilla", {row["subdivision_native"] for row in communities})
+        community_names = {row["subdivision_native"] for row in communities}
+        self.assertIn(
+            "Comunidad Valenciana / Comunitat Valenciana", community_names
+        )
+        self.assertIn("País Vasco / Euskadi", community_names)
+
     def test_template_map_inset_is_limited_to_configured_targets(self):
         svg = '''<svg xmlns="http://www.w3.org/2000/svg">
           <g id="75"><path style="fill:#abcdef"/></g>
@@ -256,7 +311,7 @@ class GenerateTests(unittest.TestCase):
         self.assertIn('id="gaz-map-inset"', inset_rendered)
         self.assertNotIn('id="gaz-map-inset"', plain_rendered)
 
-    def test_subdivision_output_can_omit_map_source(self):
+    def test_subdivision_output_never_includes_map_source(self):
         subdivision = {
             "subdivision_native": "Bayern",
             "subdivision_english": "Bavaria",
@@ -270,19 +325,41 @@ class GenerateTests(unittest.TestCase):
             "country_code": "DEU",
             "country_native": "Deutschland",
             "country_english": "Germany",
-            "include_map_source": False,
         }
 
         row = generate.subdivision_output_row(
             subdivision,
             config,
             "DEU_01_SUB1_002",
-            "gaz-deu-subdivision-by.svg",
-            "https://example.com/source.svg",
+            "gazz_deu_state_bayern.svg",
             False,
         )
 
         self.assertNotIn("map_source", row)
+
+    def test_redundant_capital_can_be_blank_in_output(self):
+        subdivision = {
+            "subdivision_native": "Madrid",
+            "subdivision_english": "Madrid",
+            "subdivision_type_native": "Provincia",
+            "subdivision_type_english": "Province",
+            "capital_native": "Madrid",
+            "capital_english": "Madrid",
+            "subdivision_code": "ES-M",
+        }
+        config = {
+            "country_code": "ESP",
+            "country_native": "España",
+            "country_english": "Spain",
+            "blank_redundant_capitals": True,
+        }
+
+        row = generate.subdivision_output_row(
+            subdivision, config, "ESP_04_SUB2_001", "map.svg", False
+        )
+
+        self.assertEqual(row["capital_native"], "")
+        self.assertEqual(row["capital_english"], "")
 
 
 if __name__ == "__main__":

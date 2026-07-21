@@ -1,0 +1,28 @@
+{
+  "countries": {
+    "DEU": {
+      "deck": "REPLACE WITH GERMANY DECK NAME",
+      "imports": {
+        "cities.acsv": "REPLACE WITH CITY NOTE TYPE",
+        "subdivisions--states.acsv": "REPLACE WITH SUBDIVISION NOTE TYPE"
+      }
+    },
+    "FRA": {
+      "deck": "REPLACE WITH FRANCE DECK NAME",
+      "imports": {
+        "cities.acsv": "REPLACE WITH CITY NOTE TYPE",
+        "subdivisions--regions.acsv": "REPLACE WITH SUBDIVISION NOTE TYPE",
+        "subdivisions-with-parent--regions-old.acsv": "REPLACE WITH PARENT SUBDIVISION NOTE TYPE",
+        "subdivisions-with-parent--departments.acsv": "REPLACE WITH PARENT SUBDIVISION NOTE TYPE"
+      }
+    },
+    "ESP": {
+      "deck": "REPLACE WITH SPAIN DECK NAME",
+      "imports": {
+        "cities.acsv": "REPLACE WITH CITY NOTE TYPE",
+        "subdivisions--autonomous-communities.acsv": "REPLACE WITH SUBDIVISION NOTE TYPE",
+        "subdivisions-with-parent--provinces.acsv": "REPLACE WITH PARENT SUBDIVISION NOTE TYPE"
+      }
+    }
+  }
+}
