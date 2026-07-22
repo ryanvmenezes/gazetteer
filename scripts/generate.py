@@ -42,8 +42,12 @@ def write_csv(path: Path, rows: list[dict[str, str]]) -> None:
     with path.open("w", encoding="utf-8", newline="") as handle:
         fieldnames = list(rows[0])
         handle.write("#separator:Comma\n")
-        csv.writer(handle).writerow([f"#columns:{fieldnames[0]}", *fieldnames[1:]])
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        csv.writer(handle, lineterminator="\n").writerow(
+            [f"#columns:{fieldnames[0]}", *fieldnames[1:]]
+        )
+        writer = csv.DictWriter(
+            handle, fieldnames=fieldnames, lineterminator="\n"
+        )
         writer.writerows(rows)
 
 

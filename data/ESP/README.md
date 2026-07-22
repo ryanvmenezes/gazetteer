@@ -9,12 +9,13 @@ Names and capitals were compiled from:
 - [Autonomous communities of Spain](https://en.wikipedia.org/wiki/Autonomous_communities_of_Spain)
 - [Provinces of Spain](https://en.wikipedia.org/wiki/Provinces_of_Spain)
 
-Where a subdivision or city has a distinct co-official local-language name,
-the native field records the Spanish form first and the local form second—for
-example `Cataluña / Catalunya`, `País Vasco / Euskadi`,
-`Navarra / Nafarroa`, `Islas Baleares / Illes Balears`, and
-`Comunidad Valenciana / Comunitat Valenciana`. English fields provide the
-familiar English name when it differs.
+Where a subdivision has a distinct co-official local-language name, its native
+field records the Spanish form first and the local form second—for example
+`Cataluña / Catalunya`, `País Vasco / Euskadi`, `Navarra / Nafarroa`,
+`Islas Baleares / Illes Balears`, and
+`Comunidad Valenciana / Comunitat Valenciana`. City rows instead use the local
+form alone as `city_native` and put the Spanish form in `city_english` when it
+differs, such as `Eivissa` and `Ibiza`.
 
 The checked-in locator maps are preserved copies of these Wikimedia Commons
 files:

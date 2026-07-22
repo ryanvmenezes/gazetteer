@@ -277,6 +277,12 @@ class GenerateTests(unittest.TestCase):
             "Comunidad Valenciana / Comunitat Valenciana", community_names
         )
         self.assertIn("País Vasco / Euskadi", community_names)
+        city_names = {
+            row["city_native"]: row["city_english"] for row in cities
+        }
+        self.assertEqual(city_names["Eivissa"], "Ibiza")
+        self.assertEqual(city_names["Bilbo"], "Bilbao")
+        self.assertEqual(city_names["Gasteiz"], "Vitoria")
 
     def test_template_map_inset_is_limited_to_configured_targets(self):
         svg = '''<svg xmlns="http://www.w3.org/2000/svg">
